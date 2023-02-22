@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png" >
+  <title>Student Login</title>
+  <link rel="icon" href="">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
+  <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body class="my-login-page">
+  <!-- <h1>I am from b1 and my name is </h1> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <title>Ongoing Events</title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <style>
+      .customsty {
+          font-family: 'Inter', sans-serif;
+      }
+  </style>
+</head>
+
+<body>
+  <header class="text-gray-700 body-font border-b border-gray-200">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="https://tailblocks.cc"
+              target="_blank">
+              <img width="50px" src="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png" alt="">
+              <span class="ml-3 text-xl">
+                  <div class="font-bold customsty">SRM University</div>
+              </span>
+          </a>
+                      <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+              <form method="POST">
+                  <button name="changeStudentBatch" class="mr-5 hover:text-gray-900">
+                      Change Student Badge
+                  </button>
+              </form>
+
+              <form action="../eventpages/studentApplieds.php" method="POST">
+                  <button name="EventStatus" class="mr-5 hover:text-gray-900">
+                      Event Status
+                  </button>
+                  <input type="hidden" name="Id"
+                      value="66" />
+                  <input type="hidden" name="Email"
+                      value="kc2938@srmist.edu.in" />
+                  <input type="hidden" name="StudentName"
+                      value="Kanav Chauhan" />
+              </form>
+
+          </nav>
+          <form method="POST">
+              <button name="logout"
+                  class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">Logout
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+              </button>
+          </form>
+      </div>
+  </header>
+  <section class="text-gray-700 body-font border-t border-gray-200">
+      <div class="container px-5 py-24 mx-auto">
+          <div class="flex flex-col text-center w-full mb-20">
+              <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">You can Apply any one of
+                  the below Events !</h2>
+              <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">Welcome,
+                  Kanav Chauhan				</h1>
+          </div>
+          <div class="flex flex-wrap -m-4">
+              <style>
+  .header {
+      font-size: 25px;
+      font-weight: 500;
+      color: #000000;
+  }
+
+  .parastyle {
+      font-weight: 600;
+      font-size: 18px;
+      color: #000000;
+  }
+</style>
+<div class="p-4 md:w-1/3">
+  <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+      <div class="flex items-center mb-3">
+          <div
+              class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  class="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+          </div>
+          <h2 class="header">
+              Ubertech			</h2>
+      </div>
+      <div class="flex-grow">
+          <p><span class="parastyle">Co-ordinator :
+              </span>K S Prassanadevi			</p>
+          <p><span class="parastyle">Dept. :
+              </span>CSE			</p>
+          <p><span class="parastyle">Description :
+              </span>Lorem ipsum dolor sit amet   m eius sed odit fugiat iusto fuga praesentium  optio  eaque rerum  Provident similique accusantium nemo autem. Veritatis  obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam  nihil  eveniet aliquid culpa officia aut			</p>
+          <br>
+          <!--ONCLICK DOWN IS STRICTLY UNSAFE SHOULD CHANGE LATER"> -->
+          <button
+              onClick="document.location.href='../eventpages/apply_event.php?name=K S Prassanadevi&email=ksp51@srmist.edu.in&eventname=Ubertech&eventsubname=Hackathon'"
+              type="submit"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              <div class="customsty">Apply				</div>
+          </button>
+          <!-- </form> -->
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="p-4 md:w-1/3">
+  <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+      <div class="flex items-center mb-3">
+          <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+          </div>
+          <h2 class="text-gray-900 text-lg title-font font-medium">There are no upcoming events..</h2>
+      </div>
+      <div class="flex-grow">
+          <p class="leading-relaxed text-base">You Can Create a New Event as an Event Handler and all the Records will be saved in our Databses and it will published to students.</p>
+          <br>
+          <button onClick="document.location.href='../eventpages/applyEvent.php'" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              <div class="customsty">No Upcoming Events</div>
+          </button>
+      </div>
+  </div>
+</div> -->			</div>
+  </section>
+  <footer class="bg-purple-700
+           text-l text-white text-center
+           border-t-4 border-blue-500
+           fixed
+           inset-x-0
+           bottom-0
+           p-3">
+      <div class="customsty">
+          © 2021 Copyright:
+          <a class="font-semibold">SRM University</a>
+      </div>
+  </footer>
+  <script src="https://cdn.tailwindcss.com"></script>
+</body>
+
+</html>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="../js/student_1.js"></script>
+</body>
+
+</html> 
