@@ -1,0 +1,36 @@
+<%- include('../include/temp_main/main_head.ejs')  %>
+<%- include('../include/temp_main/main_navbar.ejs')  %>
+	<div class="cards">
+		<article class="informationC [ card ]">
+			<span class="tagC">Login or Signup for OD</span>
+			<h2 class="title">Student Login</h2>
+			<p class="info">
+				All Batch Students can login or signup and Apply for an OD.
+			</p>
+			<a href=""></a>
+			<button class="button" onclick="window.location.href = '/student_login.ejs'">
+				<span>Log in/Sign up</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+					<path d="M0 0h24v24H0V0z" fill="none" />
+					<path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+				</svg>
+			</button>
+		</article>
+
+		<article class="informationC [ card ]">
+			<span class="tagC">Approve or DisApprove of OD List</span>
+			<h2 class="title">Faculty Login</h2>
+			<p class="info">
+				All Facultys can Login and Approve or Disapprove of the OD List.
+			</p>
+			<button class="button" onclick="window.location.href = '/faculty_login.ejs'">
+				<span>Log in/Sign up</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+					<path d="M0 0h24v24H0V0z" fill="none" />
+					<path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+				</svg>
+			</button>
+		</article>
+	</div>
+
+<%- include('../include/temp_main/main_foot.ejs')  %>

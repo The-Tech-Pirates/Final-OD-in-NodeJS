@@ -3,8 +3,12 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
 const config = require('./config');
+const main = require('./routes/main.js');
+const faculty = require('./routes/faculty.js');
+const student = require('./routes/student.js');
 
 const app = express();
+const port = process.env.PORT || 3000;
 // setting the view engine the folder views for all ejs templates 
 app.set('view engine','ejs');
 // using public folder for all static things like css and images etc 
@@ -18,34 +22,17 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// taking landing page responses 
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-// taking main login page responses 
-app.get('/main_login.ejs', (req, res) => {
-  res.render('main_login');
-});
-
-// taking faculty login page responses 
-app.get('/faculty_login.ejs', (req, res) => {
-  res.render('faculty_login');
-});
-
-// taking student login page responses 
-app.get('/student_login.ejs', (req, res) => {
-  res.render('student_login');
-});
-
+app.use('',main)
+app.use('',student)
+app.use('',faculty)
 
 
 // Login page
 app.get('/login', (req, res) => {
   res.send(`
     <h1>Login</h1>
-    <form method="post" action="/login">
+    <form method="post" action="/student_login.ejs">
       <input type="text" name="email" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
       <button type="submit">Login</button>
@@ -105,6 +92,6 @@ app.get('/logout', (req, res) => {
 });
 
 // Start server
-app.listen(3000, () => {
+app.listen(port || 3000, () => {
   console.log('Server started on port 3000');
 });
