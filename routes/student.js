@@ -4,10 +4,7 @@ const con = require('../config.js')
 const bcrypt = require('bcrypt')
 
 
-// taking student login page responses 
-router.get('/student_login.ejs', (req, res) => {
-    res.render('student/student_login');
-  });
+
 // taking student sign up page responses 
 router.get('/batch_signup.ejs', (req, res) => {
     res.render('student/batch_signup');
@@ -80,9 +77,22 @@ router.post('/batch_signin.ejs', function(req,res,next){
 });
 
 
-// taking student signin page responses 
+// taking student event page responses 
 router.get('/student_event.ejs', (req, res) => {
   res.render('student/student_event');
+});
+// taking student event page responses 
+router.post('/student_event.ejs', (req, res) => {
+  res.redirect('/student_event.ejs');
+});
+
+
+
+
+
+// taking student event info page responses 
+router.get('/student_event_info.ejs', (req, res) => {
+  res.render('student/student_event_info');
 });
 
 
