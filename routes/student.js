@@ -14,11 +14,28 @@ router.get('/batch_signup.ejs', (req, res) => {
 router.post('/batch_signup.ejs', function(req, res, next){
 
     var fullname = req.body.name;
+    req.session.fullname =fullname;
+
     var email = req.body.email;
+    req.session.email=email;
+    
+    const allowedDomain = 'srmist.edu.in';
+    const emailDomain = email.split('@')[1];
+
+  if (emailDomain !== allowedDomain) {
+    res.redirect('/batch_signup.ejs');
+    // alert('USE SRM MAIL ID ONLY ');
+  }
+    
     var reg_num = req.body.reg_num;
+    req.session.reg_num=reg_num;
+    
     var password = req.body.password;
+    req.session.password=password;
+
     var cpassword = req.body.cpassword;
-  
+    req.session.cpassword=cpassword;
+    
     if(cpassword == password){
   
       var sql = 'select * from users where studentemail = ?;';
@@ -31,21 +48,12 @@ router.post('/batch_signup.ejs', function(req, res, next){
           res.redirect('/batch_signup.ejs');
         }else{
   
-          var hashpassword = bcrypt.hashSync(password, 10);
-          var sql = 'insert into users(studentname,reg_num,studentemail,password) values(?,?,?,?);';
-  
-          con.query(sql,[fullname,reg_num,email, hashpassword], function(err, result, fields){
-            if(err) throw err;
-            req.session.flag = 2;
-            // res.redirect('/batch_signin.ejs');
-
-            const verificationCode = sendVerificationCode(email);
-            req.session.verificationCode = verificationCode;
-            req.session.email = email;
+         
+          const verificationCode = sendVerificationCode(email);
+  req.session.verificationCode = verificationCode;
+           
             res.render('student/student_verify', { email  });
 
-
-          });
         }
       });
     }else{
@@ -61,6 +69,7 @@ router.get('/student_verify.ejs', (req, res) => {
   const email = req.session.email;
   res.render('student/student_verify',{email});
   
+  
 });
 
 
@@ -68,14 +77,34 @@ router.post('/student_verify.ejs', (req, res) => {
   const enteredCode = req.body.code;
   const savedCode = req.session.verificationCode;
   const email = req.session.email;
+  const password = req.session.password;  
+  const fullname = req.session.fullname;
+  const reg_num = req.session.reg_num;
+
+
+ 
+  
 
   if (enteredCode == savedCode) {
     con.query(`UPDATE users SET verified = true WHERE studentemail='${email}'`, (error, result) => {
       if (error) {
         console.log(error);
         res.render('student/student_verify', { email, error: 'Database error' });
-      } else {
-        res.redirect('/batch_signin.ejs');
+      }
+      
+      else {
+        var hashpassword = bcrypt.hashSync(password, 10);
+          var sql = 'insert into users(studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);';
+  
+          con.query(sql,[fullname,reg_num,email, hashpassword,true], function(err, result, fields){
+            if(err) {throw err;}
+            else {
+             
+              res.redirect('/batch_signin.ejs');
+            } });
+
+
+        // res.redirect('/batch_signin.ejs');
       }
     });
   } else {
