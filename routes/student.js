@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const con = require('../config.js')
 const bcrypt = require('bcrypt')
+const { sendVerificationCode } = require('../mail');
 
 
 
@@ -36,7 +37,14 @@ router.post('/batch_signup.ejs', function(req, res, next){
           con.query(sql,[fullname,reg_num,email, hashpassword], function(err, result, fields){
             if(err) throw err;
             req.session.flag = 2;
-            res.redirect('/batch_signin.ejs');
+            // res.redirect('/batch_signin.ejs');
+
+            const verificationCode = sendVerificationCode(email);
+            req.session.verificationCode = verificationCode;
+            req.session.email = email;
+            res.render('student/student_verify', { email  });
+
+
           });
         }
       });
@@ -46,7 +54,26 @@ router.post('/batch_signup.ejs', function(req, res, next){
     }
   });
 
+// student verification file 
 
+router.post('/student_verify.ejs', (req, res) => {
+  const enteredCode = req.body.code;
+  const savedCode = req.session.verificationCode;
+  const email = req.session.email;
+
+  if (enteredCode == savedCode) {
+    con.query(`UPDATE users SET verified = true WHERE studentemail='${email}'`, (error, result) => {
+      if (error) {
+        console.log(error);
+        res.render('student/student_verify', { email, error: 'Database error' });
+      } else {
+        res.redirect('/batch_signin.ejs');
+      }
+    });
+  } else {
+    res.render('student/student_verify', { email, error: 'Invalid verification code' });
+  }
+});
 
 // taking student signin page responses 
 router.get('/batch_signin.ejs', (req, res) => {
@@ -63,12 +90,19 @@ router.post('/batch_signin.ejs', function(req,res,next){
 
   var sql = 'select * from users where studentemail = ?;';
   
+  
+
+  
   con.query(sql,[email], function(err,result, fields){
     if(err) throw err;
 
-    if(result.length && bcrypt.compareSync(password, result[0].password)){
+    if(result.length && bcrypt.compareSync(password, result[0].password) && result[0].verified){
       req.session.email = email;
+
+      
       res.redirect('/student_event.ejs');
+      
+
     }else{
       req.session.flag = 4;
       res.redirect('/batch_signin.ejs');

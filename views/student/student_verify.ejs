@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Verification Code Example</title>
+</head>
+<body>
+    <h1>Enter the verification code sent to <%= email %></h1>
+   
+    <form method="post" action="/student_verify.ejs">
+        <input type="number" name="code" required>
+        <button type="submit">Verify code</button>
+    </form>
+</body>
+</html>
