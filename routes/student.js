@@ -56,6 +56,14 @@ router.post('/batch_signup.ejs', function(req, res, next){
 
 // student verification file 
 
+
+router.get('/student_verify.ejs', (req, res) => {
+  const email = req.session.email;
+  res.render('student/student_verify',{email});
+  
+});
+
+
 router.post('/student_verify.ejs', (req, res) => {
   const enteredCode = req.body.code;
   const savedCode = req.session.verificationCode;
@@ -74,6 +82,26 @@ router.post('/student_verify.ejs', (req, res) => {
     res.render('student/student_verify', { email, error: 'Invalid verification code' });
   }
 });
+
+
+
+
+
+// resent code 
+
+router.get('/student_resend.ejs', (req, res) => {
+  const email = req.session.email;
+  const verificationCode = sendVerificationCode(email);
+  req.session.verificationCode = verificationCode;
+  res.redirect('/student_verify.ejs');
+  
+});
+
+
+
+
+
+
 
 // taking student signin page responses 
 router.get('/batch_signin.ejs', (req, res) => {
