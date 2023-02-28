@@ -118,29 +118,37 @@ router.post('/student_verify.ejs', (req, res) => {
       else {
         var hashpassword = bcrypt.hashSync(password, 10);
         const originalString = reg_num;
-        const value = originalString.slice(2, 4); // "21"
+        const batch = originalString.slice(2, 4); // "21"
         // console.log(substring);
         var sql;
-        if (value === '22') {
+        var sql2;
+        if (batch === '22') {
          sql = `insert into batch1 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);`;
-        } else if (value === '21') {
-          sql = `insert into batch2 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);`;
-        } else if (value === '20') {
-         sql = `insert into batch3 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);`;
+          sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+        } else if (batch === '21') {
+          sql = `insert into batch2 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
+          sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+        } else if (batch === '20') {
+         sql = `insert into batch3 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
+         sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
         } else {
           console.error('Invalid value');
         }
         
-        
+        // const values = [fullname, reg_num,email,hashpassword, true];
         // var sql = 'insert into users(studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);';
         // var sql = 'UPDATE users SET studentname = ?, reg_num = ?,password = ?,verified = ? WHERE studentemail = ?';
 
-        con.query(sql, [fullname, reg_num,email,hashpassword, true], function (err, result, fields) {
+        con.query(sql, [fullname, reg_num,email,hashpassword, true] , function (err, result, fields) {
           if (err) { throw err; }
           else {
 
             res.redirect('/batch_signin.ejs');
           }
+        });
+        con.query(sql2, [fullname, reg_num,hashpassword, true,email] , function (err, result, fields) {
+          if (err) { throw err; }
+          
         });
 
 
