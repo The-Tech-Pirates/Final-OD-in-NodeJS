@@ -151,7 +151,7 @@ router.post('/batch_signin.ejs', function(req,res,next){
 
   
   con.query(sql,[email], function(err,result, fields){
-    if(err) throw err;
+    if(err) {throw err;}
 
     if(result.length && bcrypt.compareSync(password, result[0].password) && result[0].verified){
       req.session.email = email;
@@ -163,6 +163,8 @@ router.post('/batch_signin.ejs', function(req,res,next){
     }else{
       req.session.flag = 4;
       res.redirect('/batch_signin.ejs');
+      
+
     }
   });
 });
