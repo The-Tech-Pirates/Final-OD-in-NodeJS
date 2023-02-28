@@ -1,0 +1,447 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Apply For an Event</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link rel="stylesheet" href="../css/event-overview-student.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
+</head>
+<style>
+	.event-info {
+		margin: 5% 13%;
+		padding-bottom: 5%;
+
+	}
+
+
+	.status-box {
+		padding: 0 5%;
+	}
+
+	.dark-row {
+		background-color: darkslategray;
+		border-radius: 15px 50px;
+
+
+	}
+
+	.pic-event {
+		padding-top: 4%;
+	}
+
+	p {
+		margin: 0px;
+	}
+
+	h1 {
+		margin: 0px;
+	}
+
+	body {
+		background-color: whitesmoke;
+	}
+
+	.create-event {
+		background-color: white;
+	}
+
+	.form-group input {
+		outline: none;
+		display: block;
+		background: rgba(0, 0, 0, 0.1);
+		width: 100%;
+		border: 0;
+		border-radius: 4px;
+		box-sizing: border-box;
+		padding: 12px 20px;
+		color: rgba(0, 0, 0, 0.6);
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: 500;
+		line-height: inherit;
+		transition: 0.3s ease;
+	}
+
+	.form-group textarea {
+		outline: none;
+		display: block;
+		background: rgba(0, 0, 0, 0.1);
+		width: 100%;
+		border: 0;
+		border-radius: 4px;
+		box-sizing: border-box;
+		padding: 12px 20px;
+		color: rgba(0, 0, 0, 0.6);
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: 500;
+		line-height: inherit;
+		transition: 0.3s ease;
+	}
+
+	input {
+		text-align: center;
+	}
+
+	textarea {
+		text-align: center;
+	}
+
+
+	/* ===================  Table Border  ====================== */
+
+
+
+
+
+
+	/* ===================  Table Border  ====================== */
+	.overlay {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(0, 0, 0, 0.51);
+		display: none;
+		animation: fade 0.6s;
+	}
+
+	.popup-container {
+		position: relative;
+		background: #fff;
+		width: 65%;
+		margin: 70px auto;
+		padding: 20px 20px 70px 20px;
+		border-radius: 5px;
+	}
+
+	.title {
+		font-size: 25px;
+		font-weight: bold;
+	}
+
+	.content {
+		margin-top: 10px;
+		line-height: 20px;
+	}
+
+	.close {
+		padding: 0 15px;
+		margin-top: 20px;
+		position: absolute;
+		right: 20px;
+		height: 35px;
+		background: #00a6b4;
+		border-radius: 5px;
+		border: none;
+		color: white;
+		font-size: 12px;
+		font-weight: bold;
+	}
+
+	.close:hover {
+		background: #003c50;
+		transition: background-color 300ms linear;
+	}
+
+	@keyframes fade {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+</style>
+
+<body>
+	
+	<div class="container mt-5 create-event rounded-4">
+		<div class="row pic-event">
+			<div class="col-md-4 text-end my-auto text-center">
+				<img width="50%" height="60%"
+					src="https://www.hacksforhumanity.io/wp-content/uploads/2020/08/Hackathon-Poster-2-1-scaled.jpg"
+					alt="">
+			</div>
+
+			<div class="col-md-8 text-start px-5 ">
+				<div class="ps-5">
+					<h1> <strong>Hackathon, Ubertech</strong>
+					</h1>
+					<h4> <em>ACE</em>
+					</h4>
+				</div>
+
+				<br>
+
+				<div class="px-5 text-start">
+					<table class="table table-hover ">
+
+						<tbody>
+
+							<tr>
+								<th scope="row">Event Date : </th>
+								<td>12-12-2023 - 15-12-2023								</td>
+
+							</tr>
+							<tr>
+								<th scope="row">Student Limit : </th>
+								<td>100								</td>
+
+							</tr>
+							<tr>
+								<th scope="row">Apply Here : </th>
+								<td colspan="2">
+									<button onclick='popup()' type="button" class="btn btn-sm btn-outline-success col-6"
+										disabled										><Strong>Applied</Strong>
+									</button>
+									<br><br>
+									<form method="post">
+										<button name="back" class="btn btn-sm btn-outline-success col-6">Go
+											Back</button>
+									</form>
+								</td>
+								
+								<div class='overlay'>
+									<div class='popup-container'>
+										<div class='title'>
+											Disclaimer
+										</div>
+										<div class='content'>
+											<h4>Event Confirmation</h4>
+											<h6>Event name :
+												Ubertech											</h6>
+											<h6>Event Sub Name :
+												Hackathon											</h6>
+											<h6>Event Coordinator name :
+												K S Prassanadevi											</h6>
+											<h6>Coordinator Number :
+												6374529930											</h6>
+											<h6>Coordinator Email :
+												ksp51@srmist.edu.in											</h6>
+											<h6>Representing club :
+												ACE											</h6>
+											<h6>Event Date :
+												12-12-2023 - 15-12-2023											</h6>
+											<h6>Event Price :
+												CSE											</h6>
+
+											<h6>Event Price :
+												paid - 50											</h6>
+											<h6>Student Limit :
+												100											</h6>
+										</div>
+										<form method="post">
+											<button name="applyConfirm" class='close' onclick='closePopup()'>
+												Confirm
+											</button>
+										</form>
+
+									</div>
+								</div>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br>
+		</div>
+		<br><br>
+
+
+		<!-- row -->
+		<div class="row">
+			<!-- name -->
+			<div class="col-md-4 text-center">
+				<table class="table" id="tableyy">
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>EventHandler Name :
+								</strong>K S Prassanadevi							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>EventHandler Email :
+								</strong>ksp51@srmist.edu.in							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>EventHandler Contact Num :
+								</strong>6374529930							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+		</div>
+		<br>
+		<br>
+		<!-- row -->
+		<!-- row -->
+		<div class="row">
+
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Representing Club :
+								</strong>ACE							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Representing Dept :
+								</strong>CSE							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event Cost :
+								</strong>paid - 50							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+		</div>
+		<br>
+		<br>
+		<!-- row -->
+		<!-- row -->
+		<div class="row">
+
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event Start Date :
+								</strong>12-12-2023							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event End Date :
+								</strong>15-12-2023							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event Description :
+								</strong>Lorem ipsum dolor sit amet   m eius sed odit fugiat iusto fuga praesentium  optio  eaque rerum  Provident similique accusantium nemo autem. Veritatis  obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam  nihil  eveniet aliquid culpa officia aut							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+		</div>
+		<br>
+		<br>
+		<!-- row -->
+
+	</div>
+	</div>
+	<script>
+		const myText = document.getElementById("my-text");
+		myText.style.cssText = `height: ${myText.scrollHeight}px; overflow-y: hidden`;
+
+		myText.addEventListener("input", function() {
+			this.style.height = "auto";
+			this.style.height = `${this.scrollHeight}px`;
+		});
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+	</script>
+	<script>
+		const disclaimer = document.querySelector('.overlay')
+
+		function popup() {
+			disclaimer.style.display = "block";
+			disclaimer.style.opacity = 1
+		}
+
+		function closePopup() {
+			disclaimer.style.display = "none";
+		}
+	</script>
+</body>
+
+</html>

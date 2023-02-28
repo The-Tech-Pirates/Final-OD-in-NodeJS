@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <style>
+        #cletter {
+            font-weight: 500;
+        }
+
+        #cletters {
+            font-weight: 500;
+            position: relative;
+            top: 17px;
+        }
+
+        .cus {
+            position: fixed;
+            width: 100%;
+            top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="POST" action="createEvent.php">
+	<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+		<div class="relative py-3 sm:max-w-xl sm:mx-auto">
+			<div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+				<div class="max-w-md mx-auto">
+					<div class="flex items-center space-x-5">
+						<div
+							class="h-14 w-14 bg-yellow-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">
+							i</div>
+						<div class="block pl-2 font-semibold text-xl self-start text-gray-700">
+							<h2 class="leading-relaxed">Create an Event</h2>
+							<p class="text-sm text-gray-500 font-normal leading-relaxed">After creating an event, the
+								details will be listed for all students and facultys.</p>
+						</div>
+					</div>
+					<div class="divide-y divide-gray-200">
+						<div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+							<div class="flex flex-col">
+								<label id="cletter" class="leading-loose">Enter your Name : </label>
+								<input name="name" type="text"
+									class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+									placeholder="Kanav - Default"
+									disabled>
+							</div>
+							<div class="flex flex-col">
+								<label id="cletter" class="leading-loose">Enter your Email Address : </label>
+								<input name="email" type="text"
+									class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+									placeholder="kc2938@srmist.edu.in - Default"
+									disabled>
+							</div>
+							<div class="flex flex-col">
+								<label id="cletter" class="leading-loose">Enter your Contact Number : </label>
+								<input name="contact" type="text"
+									class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+									placeholder="Contact Number" required>
+							</div>
+							<div class="flex flex-col">
+								<label id="cletter" class="leading-loose">Event Name : </label>
+								<div class="relative focus-within:text-gray-600 text-gray-400">
+									<input name="eventname" type="text"
+										class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+										placeholder="Event Name" required>
+								</div>
+							</div>
+							<div class="flex items-center space-x-4">
+								<div class="flex flex-col">
+									<label id="cletter" class="leading-loose">Event SubName : </label>
+									<div class="relative focus-within:text-gray-600 text-gray-400">
+										<input name="eventsubname" type="text"
+											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+											placeholder="Event SubName" required>
+									</div>
+								</div>
+								<div class="flex flex-col">
+									<label id="cletter" class="leading-loose">Club Name : </label>
+									<div class="relative focus-within:text-gray-600 text-gray-400">
+										<input name="clubname" type="text"
+											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+											placeholder="Club Name" required>
+									</div>
+								</div>
+							</div>
+							<label id="cletters" class="leading-loose">Event Cost : </label>
+							<ul
+								class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+								<li
+									class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+									<div class="flex items-center pl-3">
+										<input name="fee" value="free" id="horizontal-list-radio-license" type="radio"
+											value="" name="list-radio"
+											class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+										<label for="horizontal-list-radio-license"
+											class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Free</label>
+									</div>
+								</li>
+								<li
+									class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+									<div class="flex items-center pl-3">
+										<input name="fee" value="paid" id="horizontal-list-radio-id" type="radio"
+											value="" name="list-radio"
+											class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+										<label for="horizontal-list-radio-id"
+											class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Paid</label>
+									</div>
+								</li>
+							</ul>
+							<div class="flex items-center space-x-4">
+								<div class="flex flex-col">
+									<label id="cletter" class="leading-loose">Event price : </label>
+									<div class="relative focus-within:text-gray-600 text-gray-400">
+										<input name="eventprice" type="text"
+											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+											placeholder="Event Cost">
+									</div>
+								</div>
+								<div class="flex flex-col">
+									<label id="cletter" class="leading-loose">Student Limit : </label>
+									<div class="relative focus-within:text-gray-600 text-gray-400">
+										<input name="studentlimit" type="text"
+											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+											placeholder="Student Limit" required>
+									</div>
+								</div>
+							</div>
+
+							<div class="flex items-center space-x-4">
+								<div class="flex flex-col">
+									<label id="cletter" class="leading-loose">Event Start date : </label>
+									<div class="relative focus-within:text-gray-600 text-gray-400">
+										<input name="startdate" type="text"
+											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+											placeholder="25/02/2020" required>
+										<div class="absolute left-3 top-2">
+											<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+												xmlns="http://www.w3.org/2000/svg">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+													d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+												</path>
+											</svg>
+										</div>
+									</div>
+								</div>
+								<div class="flex flex-col">
+									<label id="cletter" class="leading-loose">Event End date : </label>
+									<div class="relative focus-within:text-gray-600 text-gray-400">
+										<input name="enddate" type="text"
+											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+											placeholder="26/02/2020">
+										<div class="absolute left-3 top-2">
+											<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+												xmlns="http://www.w3.org/2000/svg">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+													d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+												</path>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</div>
+							<h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Select Event Dept. : </h3>
+							<ul
+								class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+								<li
+									class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+									<div class="flex items-center pl-3">
+										<input name="dept" value="cse" id="horizontal-list-radio-license" type="radio"
+											class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+										<label for="horizontal-list-radio-license"
+											class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">CSE</label>
+									</div>
+								</li>
+								<li
+									class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+									<div class="flex items-center pl-3">
+										<input name="dept" value="ece" id="horizontal-list-radio-id" type="radio"
+											class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+										<label for="horizontal-list-radio-id"
+											class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">ECE</label>
+									</div>
+								</li>
+								<li
+									class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+									<div class="flex items-center pl-3">
+										<input name="dept" value="mba" id="horizontal-list-radio-millitary" type="radio"
+											class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+										<label for="horizontal-list-radio-millitary"
+											class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">MBA</label>
+									</div>
+								</li>
+								<li class="w-full dark:border-gray-600">
+									<div class="flex items-center pl-3">
+										<input name="dept" value="mech" id="horizontal-list-radio-passport" type="radio"
+											class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+										<label for="horizontal-list-radio-passport"
+											class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Mech</label>
+									</div>
+								</li>
+							</ul>
+							<br>
+							<div class="flex justify-center">
+								<div class="mb-3 w-96">
+									<label for="formFileLg" class="form-label inline-block mb-2 text-gray-700"
+										id="cletter">Upload the Event Banner : </label>
+									<input name="image"
+										class="form-control block w-full px-2 py-1.5 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+										id="formFileLg" type="file" required>
+								</div>
+							</div>
+							<div class="flex flex-col">
+								<label id="cletter" class="leading-loose">Event Description : </label>
+								<textarea name="description"
+									class="w-full h-16 px-3 py-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline"
+									placeholder="Enter Event Description Here...." required></textarea>
+							</div>
+						</div>
+						<div class="pt-4 flex items-center space-x-4">
+							<button
+								class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M6 18L18 6M6 6l12 12"></path>
+								</svg> Cancel
+							</button>
+							<button
+								class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
+								type="submit">Create</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form></body>
+<script>
+    var alert_del = document.querySelectorAll('.alert-del');
+    alert_del.forEach((x) =>
+        x.addEventListener('click', function() {
+            x.parentElement.classList.add('hidden');
+        })
+    );
+</script>
+
+</html>

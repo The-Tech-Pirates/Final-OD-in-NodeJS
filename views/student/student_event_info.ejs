@@ -1,103 +1,447 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
-    <title>Enter Your Details</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: gray;
-        }
-    </style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Apply For an Event</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link rel="stylesheet" href="../css/event-overview-student.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
 </head>
+<style>
+	.event-info {
+		margin: 5% 13%;
+		padding-bottom: 5%;
+
+	}
+
+
+	.status-box {
+		padding: 0 5%;
+	}
+
+	.dark-row {
+		background-color: darkslategray;
+		border-radius: 15px 50px;
+
+
+	}
+
+	.pic-event {
+		padding-top: 4%;
+	}
+
+	p {
+		margin: 0px;
+	}
+
+	h1 {
+		margin: 0px;
+	}
+
+	body {
+		background-color: whitesmoke;
+	}
+
+	.create-event {
+		background-color: white;
+	}
+
+	.form-group input {
+		outline: none;
+		display: block;
+		background: rgba(0, 0, 0, 0.1);
+		width: 100%;
+		border: 0;
+		border-radius: 4px;
+		box-sizing: border-box;
+		padding: 12px 20px;
+		color: rgba(0, 0, 0, 0.6);
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: 500;
+		line-height: inherit;
+		transition: 0.3s ease;
+	}
+
+	.form-group textarea {
+		outline: none;
+		display: block;
+		background: rgba(0, 0, 0, 0.1);
+		width: 100%;
+		border: 0;
+		border-radius: 4px;
+		box-sizing: border-box;
+		padding: 12px 20px;
+		color: rgba(0, 0, 0, 0.6);
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: 500;
+		line-height: inherit;
+		transition: 0.3s ease;
+	}
+
+	input {
+		text-align: center;
+	}
+
+	textarea {
+		text-align: center;
+	}
+
+
+	/* ===================  Table Border  ====================== */
+
+
+
+
+
+
+	/* ===================  Table Border  ====================== */
+	.overlay {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(0, 0, 0, 0.51);
+		display: none;
+		animation: fade 0.6s;
+	}
+
+	.popup-container {
+		position: relative;
+		background: #fff;
+		width: 65%;
+		margin: 70px auto;
+		padding: 20px 20px 70px 20px;
+		border-radius: 5px;
+	}
+
+	.title {
+		font-size: 25px;
+		font-weight: bold;
+	}
+
+	.content {
+		margin-top: 10px;
+		line-height: 20px;
+	}
+
+	.close {
+		padding: 0 15px;
+		margin-top: 20px;
+		position: absolute;
+		right: 20px;
+		height: 35px;
+		background: #00a6b4;
+		border-radius: 5px;
+		border: none;
+		color: white;
+		font-size: 12px;
+		font-weight: bold;
+	}
+
+	.close:hover {
+		background: #003c50;
+		transition: background-color 300ms linear;
+	}
+
+	@keyframes fade {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+</style>
 
 <body>
+	
+	<div class="container mt-5 create-event rounded-4">
+		<div class="row pic-event">
+			<div class="col-md-4 text-end my-auto text-center">
+				<img width="50%" height="60%"
+					src="https://www.hacksforhumanity.io/wp-content/uploads/2020/08/Hackathon-Poster-2-1-scaled.jpg"
+					alt="">
+			</div>
 
-    <form method="POST" action="/student_event.ejs" >
-        <div class="py-12 bg-gray absolute top-0 right-0 bottom-0 left-0" id="modal">
-            <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-                <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+			<div class="col-md-8 text-start px-5 ">
+				<div class="ps-5">
+					<h1> <strong>Hackathon, Ubertech</strong>
+					</h1>
+					<h4> <em>ACE</em>
+					</h4>
+				</div>
 
-                    <div class="w-full flex justify-start text-gray-600 mb-3">
-                        <img width="75px" src="https://img.icons8.com/emoji/96/null/nazar-amulet.png" />
-                    </div>
-                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Enter Your Details : </h1>
-                    <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Name : </label>
-                        <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Full Name" required>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Registeration Number : </label>
-                        <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Reg Number" required>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Contact Number : </label>
-                        <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter contact number" required>
-                    </div>
-                    <br>
-                    <div class="grid gap-6 mb-6 md:grid-cols-2">
-                        <div>
-                            <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Email Address : </label>
-                            <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mail ID" required>
-                        </div>
-                        <div>
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Faculty Mail ID : </label>
-                            <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Faculty Mail ID"  required>
-                        </div>
-                    </div>
-                    <div class="grid gap-6 mb-6 md:grid-cols-2">
-                        <div>
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Which Year</label>
-                            <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="year"  required>
-                        </div>
-                        <div>
-                            <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Dept.</label>
-                            <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Dept." required>
-                        </div>
-                    </div>
-                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Select Your Class : </h3>
-                    <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input id="horizontal-list-radio-license" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="horizontal-list-radio-license" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">CSE A</label>
-                            </div>
-                        </li>
-                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input id="horizontal-list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="horizontal-list-radio-id" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">CSE B</label>
-                            </div>
-                        </li>
-                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input id="horizontal-list-radio-millitary" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="horizontal-list-radio-millitary" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">CSE C</label>
-                            </div>
-                        </li>
-                        <li class="w-full dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input id="horizontal-list-radio-passport" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="horizontal-list-radio-passport" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">CSE E</label>
-                            </div>
-                        </li>
-                    </ul><br>
-                    <div class="flex items-center justify-start w-full">
-                        <button class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
-                        <button onclick="" class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+				<br>
+
+				<div class="px-5 text-start">
+					<table class="table table-hover ">
+
+						<tbody>
+
+							<tr>
+								<th scope="row">Event Date : </th>
+								<td>12-12-2023 - 15-12-2023								</td>
+
+							</tr>
+							<tr>
+								<th scope="row">Student Limit : </th>
+								<td>100								</td>
+
+							</tr>
+							<tr>
+								<th scope="row">Apply Here : </th>
+								<td colspan="2">
+									<button onclick='popup()' type="button" class="btn btn-sm btn-outline-success col-6"
+																				><Strong>Apply</Strong>
+									</button>
+									<br><br>
+									<form method="post">
+										<button name="back" class="btn btn-sm btn-outline-success col-6">Go
+											Back</button>
+									</form>
+								</td>
+								
+								<div class='overlay'>
+									<div class='popup-container'>
+										<div class='title'>
+											Disclaimer
+										</div>
+										<div class='content'>
+											<h4>Event Confirmation</h4>
+											<h6>Event name :
+												Ubertech											</h6>
+											<h6>Event Sub Name :
+												Hackathon											</h6>
+											<h6>Event Coordinator name :
+												K S Prassanadevi											</h6>
+											<h6>Coordinator Number :
+												6374529930											</h6>
+											<h6>Coordinator Email :
+												ksp51@srmist.edu.in											</h6>
+											<h6>Representing club :
+												ACE											</h6>
+											<h6>Event Date :
+												12-12-2023 - 15-12-2023											</h6>
+											<h6>Event Price :
+												CSE											</h6>
+
+											<h6>Event Price :
+												paid - 50											</h6>
+											<h6>Student Limit :
+												100											</h6>
+										</div>
+										<form method="post">
+											<button name="applyConfirm" class='close' onclick='closePopup()'>
+												Confirm
+											</button>
+										</form>
+
+									</div>
+								</div>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br>
+		</div>
+		<br><br>
+
+
+		<!-- row -->
+		<div class="row">
+			<!-- name -->
+			<div class="col-md-4 text-center">
+				<table class="table" id="tableyy">
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>EventHandler Name :
+								</strong>K S Prassanadevi							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>EventHandler Email :
+								</strong>ksp51@srmist.edu.in							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>EventHandler Contact Num :
+								</strong>6374529930							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+		</div>
+		<br>
+		<br>
+		<!-- row -->
+		<!-- row -->
+		<div class="row">
+
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Representing Club :
+								</strong>ACE							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Representing Dept :
+								</strong>CSE							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event Cost :
+								</strong>paid - 50							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+		</div>
+		<br>
+		<br>
+		<!-- row -->
+		<!-- row -->
+		<div class="row">
+
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event Start Date :
+								</strong>12-12-2023							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event End Date :
+								</strong>15-12-2023							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+			<!-- name -->
+			<div class="col-md-4 text-center">
+
+				<table class="table" id="tableyy">
+
+					<tbody>
+						<tr>
+							<td scope="row" id="my-text"> <strong>Event Description :
+								</strong>Lorem ipsum dolor sit amet   m eius sed odit fugiat iusto fuga praesentium  optio  eaque rerum  Provident similique accusantium nemo autem. Veritatis  obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam  nihil  eveniet aliquid culpa officia aut							</td>
+
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- name -->
+		</div>
+		<br>
+		<br>
+		<!-- row -->
+
+	</div>
+	</div>
+	<script>
+		const myText = document.getElementById("my-text");
+		myText.style.cssText = `height: ${myText.scrollHeight}px; overflow-y: hidden`;
+
+		myText.addEventListener("input", function() {
+			this.style.height = "auto";
+			this.style.height = `${this.scrollHeight}px`;
+		});
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+	</script>
+	<script>
+		const disclaimer = document.querySelector('.overlay')
+
+		function popup() {
+			disclaimer.style.display = "block";
+			disclaimer.style.opacity = 1
+		}
+
+		function closePopup() {
+			disclaimer.style.display = "none";
+		}
+	</script>
 </body>
 
 </html>

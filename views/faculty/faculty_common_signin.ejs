@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png" >
+  <title>Faculty Login</title>
+  <link rel="icon" href="">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
+  <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body class="my-login-page">
+      <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <title>Select Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/index.css">
+
+  <style>
+      #LogoutButton {
+          position: relative;
+          top: 25px;
+          right: 25px;
+      }
+  </style>
+</head>
+
+<body>
+
+  <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+          <div class="container">
+              <div class="row">
+                  <div class="col-sm-8 col-md-7 py-4">
+                      <h4 class="text-white">About</h4>
+                      <p class="text-white">Hi, This website is for university purpose only! <br> As the students can apply Od for an event and get approval from the respective event managers and teachers.</p>
+                  </div>
+                  <div class="col-sm-4 offset-md-1 py-4">
+                      <h4 class="text-white">Contact</h4>
+                      <ul class="list-unstyled">
+                          <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                          <li><a href="#" class="text-white">Like on Facebook</a></li>
+                          <li><a href="#" class="text-white">Email us</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+              <a href="#" class="navbar-brand d-flex align-items-center">
+                  <img width="50px" height="50px" src="https://upload.wikimedia.org/wikipedia/en/f/fe/Srmseal.png" alt="">
+                  <strong>&nbsp;&nbsp;&nbsp; SRM University</strong>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+          </div>
+      </div>
+  </header>
+  
+  <form method="POST">
+      <button name="facultyLogin" id="LogoutButton" class="btn btn-primary float-right">Logout</button>
+  </form>
+  <div class="cards">
+      <article class="informationC [ card ]">
+          <span class="tagC">Login as an HOD</span>
+          <h2 class="title">HOD Login</h2>
+          <p class="info">
+              HOD can Login and review the OD applications and approve them.
+          </p>
+          <a href=""></a>
+          <button class="button" onclick="window.location.href = '/hod_signin.ejs'">
+              <span>Log in/Sign up</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+              </svg>
+          </button>
+      </article>
+
+      <article class="informationC [ card ]">
+          <span class="tagC">Login as an Event Handler</span>
+          <h2 class="title">Event Handler Login</h2>
+          <p class="info">
+              Event Handler can Login and review the OD applications and approve them.
+          </p>
+          <button class="button" onclick="window.location.href = '/faculty_signin.ejs'">
+              <span>Log in/Sign up</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+              </svg>
+          </button>
+      </article>
+
+      <article class="informationC [ card ]">
+          <span class="tagC">Login as an Class teacher</span>
+          <h2 class="title">Class Teacher Login</h2>
+          <p class="info">
+              Class Teacher can Login and review the OD applications and approve them.
+          </p>
+          <button class="button" onclick="window.location.href = '/teacher_signin.ejs'">
+              <span>Log in/Sign up</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+              </svg>
+          </button>
+      </article>
+
+      <!-- <article class="informationC [ card ]">
+          <span class="tagC">Login as an Admin</span>
+          <h2 class="title">Admin Login</h2>
+          <p class="info">
+              Admins can Login and review the OD applications and approve them.
+          </p>
+          <button class="button" onclick="window.location.href = 'forms/facultyLogin.php'">
+              <span>Log in/Sign up</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+              </svg>
+          </button>
+      </article> -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+
+</html>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="../js/student_1.js"></script>
+</body>
+
+</html> 
