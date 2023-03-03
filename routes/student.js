@@ -40,10 +40,10 @@ router.get('/batch_signup.ejs', (req, res) => {
 
 router.post('/batch_signup.ejs', function (req, res, next) {
 
-  var fullname = req.body.name;
-  req.session.fullname = fullname;
+  var name = req.body.name;
+  
   var email = req.body.email;
-  req.session.email = email;
+  
 
 // FOR CHECKING SRM MAIL ID
   const allowedDomain = 'srmist.edu.in';
@@ -54,11 +54,12 @@ router.post('/batch_signup.ejs', function (req, res, next) {
   }
 
   var reg_num = req.body.reg_num;
-  req.session.reg_num = reg_num;
-  var password = req.body.password;
-  req.session.password = password;
+  
+  req.session.password = req.body.password;
+  var password = req.session.password;
+  
   var cpassword = req.body.cpassword;
-  req.session.cpassword = cpassword;
+  
 
   
 
@@ -85,7 +86,8 @@ con.getConnection((error, connection) => {
       } else {
         if (cpassword == password) {
 
-          var sql = 'select * from users where studentemail = ?;';
+          var sql = 'select * from users where studentemail = ?  ; ';
+          
 
           con.getConnection((error, connection) => {
             if (error) {
@@ -98,13 +100,53 @@ con.getConnection((error, connection) => {
                 if (result.length === 0) {
                   req.session.flag = 1;
                   res.redirect('/batch_signup.ejs');
-                } else {
+                  
+                }
+                
+                
+                
+                
+                else {
+
+                  req.session.name = result[0].studentname;
+                  req.session.email = result[0].studentemail;
+                  req.session.reg_num = result[0].reg_num;
+                  req.session.year = result[0].year;
+                  req.session.id = result[0].id;
+
+                  con.getConnection((error, connection) => {
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      var sql = "select * from batch1 where studentemail = ? UNION   SELECT * FROM batch2 WHERE studentemail = ? UNION   SELECT * FROM batch3 WHERE studentemail = ?;";
+                      con.query(sql, [email,email,email], function (err, result, fields) {
+                        connection.release();
+                        if (err) throw err;
+            
+                        if (result.length !== 0) {
+                          req.session.flag = 1;
+                          res.redirect('/batch_signup.ejs');
+                          
+                        }
+                      
+                        else{
+                          
+                  
+                  // req.session.password = result[0].studentname;
+
     
     
                   const verificationCode = sendVerificationCode(email);
                   req.session.verificationCode = verificationCode;
     
                   res.render('student/student_verify', { email });
+
+                        }
+
+                      });
+                    }
+                  }); 
+
     
                 }
               });
@@ -154,23 +196,11 @@ router.post('/student_verify.ejs', (req, res) => {
   const savedCode = req.session.verificationCode;
   const email = req.session.email;
   const password = req.session.password;
-  const fullname = req.session.fullname;
+  const name = req.session.name;
   const reg_num = req.session.reg_num;
 
   if (enteredCode == savedCode) {
 
-    con.getConnection((error, connection) => {
-      if (error) {
-        console.log(error);
-      } else {
-        con.query(`UPDATE users SET verified = true WHERE studentemail='${email}'`, (error, result) => {
-          connection.release();
-          if (error) {
-            console.log(error);
-            res.render('student/student_verify', { email, error: 'Database error' });
-          }
-    
-          else {
             var hashpassword = bcrypt.hashSync(password, 10);
             const originalString = reg_num;
             const batch = originalString.slice(2, 4); // "21"
@@ -178,19 +208,19 @@ router.post('/student_verify.ejs', (req, res) => {
             var sql;
             var sql2;
             if (batch === '22') {
-             sql = `insert into batch1 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);`;
-              sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+             sql = `insert into batch1 (studentname,reg_num,studentemail,password,verified,year) values(?,?,?,?,?,?);`;
+              // sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
             } else if (batch === '21') {
-              sql = `insert into batch2 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
-              sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+              sql = `insert into batch2 (studentname,reg_num,studentemail,password,verified,year) values(?,?,?,?,?,?); `;
+              // sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
             } else if (batch === '20') {
-             sql = `insert into batch3 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
-             sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+             sql = `insert into batch3 (studentname,reg_num,studentemail,password,verified,year) values(?,?,?,?,?,?); `;
+            //  sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
             } else {
               console.error('Invalid value');
             }
             
-            // const values = [fullname, reg_num,email,hashpassword, true];
+            // const values = [name, reg_num,email,hashpassword, true];
             // var sql = 'insert into users(studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);';
             // var sql = 'UPDATE users SET studentname = ?, reg_num = ?,password = ?,verified = ? WHERE studentemail = ?';
     
@@ -198,7 +228,7 @@ router.post('/student_verify.ejs', (req, res) => {
               if (error) {
                 console.log(error);
               } else {
-                con.query(sql, [fullname, reg_num,email,hashpassword, true] , function (err, result, fields) {
+                con.query(sql, [req.session.name, req.session.reg_num,req.session.email,hashpassword, true,req.session.year] , function (err, result, fields) {
                   connection.release();
                   if (err) { throw err; }
                   else {
@@ -206,18 +236,15 @@ router.post('/student_verify.ejs', (req, res) => {
                     res.redirect('/batch_signin.ejs');
                   }
                 });
-                con.query(sql2, [fullname, reg_num,hashpassword, true,email] , function (err, result, fields) {
-                  connection.release();
-                  if (err) { throw err; }
+                // con.query(sql2, [name, reg_num,hashpassword, true,email] , function (err, result, fields) {
+                //   connection.release();
+                //   if (err) { throw err; }
                   
-                });
+                // });
               }
             });           
             // res.redirect('/batch_signin.ejs');
-          }
-        });
-      }
-    });
+        
     
 
 
@@ -255,18 +282,19 @@ router.post('/batch_signin.ejs', function (req, res, next) {
   var email = req.body.email;
   req.session.email=email;
   var password = req.body.password;
-  var sql = 'select * from users where studentemail = ?;';
+  var sql = "select * from batch1 where studentemail = ? UNION   SELECT * FROM batch2 WHERE studentemail = ? UNION   SELECT * FROM batch3 WHERE studentemail = ?;";
 
   con.getConnection((error, connection) => {
     if (error) {
       console.log(error);
     } else {
-      con.query(sql, [email], function (err, result, fields) {
+      con.query(sql, [email,email,email], function (err, result, fields) {
         connection.release();
         if (err) { throw err; }
     
         if (result.length && bcrypt.compareSync(password, result[0].password) && result[0].verified) {
           req.session.email = email;
+          req.session.name= result[0].studentname;
           res.redirect('/student_event.ejs');
         } else {
           req.session.flag = 4;
@@ -284,7 +312,7 @@ router.post('/batch_signin.ejs', function (req, res, next) {
 
 // taking student event page responses 
 router.get('/student_event.ejs',requireLogin, (req, res) => {
-  var name =req.session.email;
+  var name =req.session.name; 
   res.render('student/student_event', { name });
 });
 // taking student event page responses 
