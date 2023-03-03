@@ -19,8 +19,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: 'your_secret_key',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour (in milliseconds)
 }));
+
+
 
 
 app.use('',main)
@@ -28,67 +31,15 @@ app.use('',student)
 app.use('',faculty)
 
 
-// Login page
-app.get('/login', (req, res) => {
-  res.send(`
-    <h1>Login</h1>
-    <form method="post" action="/student_login.ejs">
-      <input type="text" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-  `);
-});
 
-// Login verification
-app.post('/student_login.ejs', async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
 
-  const conn = await mysql.createConnection(config);
 
-  try {
-    // Find user by email
-    const [rows] = await conn.execute('SELECT * FROM users WHERE email = ?', [email]);
-    const user = rows[0];
 
-    if (user) {
-      // Compare password hash
-      const match = await bcrypt.compare(password, user.password);
-      if (match) {
-        req.session.userId = user.id;
-        res.redirect('/student_event.ejs');
-      } else {
-        res.send('Incorrect password');
-      }
-    } else {
-      res.send('User not found');
-    }
-  } catch (err) {
-    console.error(err);
-    res.send('Error');
-  } finally {
-    await conn.end();
-  }
-});
-
-// Event 
-app.get('/student_event.ejs', (req, res) => {
-  if (req.session.userId) {
-    res.send(`
-      <h1>Dashboard</h1>
-      <p>Welcome user ${req.session.userId}!</p>
-      <a href="/logout">Logout</a>
-    `);
-  } else {
-    res.redirect('/student_login.ejs');
-  }
-});
 
 // Logout
-app.get('/logout', (req, res) => {
+app.get('/logout.ejs', (req, res) => {
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect('/batch_signin.ejs');
 });
 
 // Start server

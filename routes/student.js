@@ -6,22 +6,48 @@ const { sendVerificationCode } = require('../mail');
 
 
 
-// taking student sign up page responses 
+
+// Define middleware function to check if user is logged in
+function requireLogin(req, res, next) {
+  if (req.session && req.session.email) {
+    // User is logged in, call the next middleware function
+    return next();
+  } else {
+    // User is not logged in, check if current route is sign-up route
+    if (req.originalUrl === '/batch_signup.ejs') {
+      // User is trying to sign up, call the next middleware function
+      return next();
+    } 
+    else {
+      // User is not trying to sign up, redirect to login page
+      return res.redirect('/batch_signin.ejs');
+    }
+  }
+}
+
+
+
+
+
+
+// BATCH SIGN UP  -> GET
+
 router.get('/batch_signup.ejs', (req, res) => {
   res.render('student/batch_signup');
 });
+
+// BATCH SIGN UP  -> POST
 
 router.post('/batch_signup.ejs', function (req, res, next) {
 
   var fullname = req.body.name;
   req.session.fullname = fullname;
-
   var email = req.body.email;
   req.session.email = email;
 
+// FOR CHECKING SRM MAIL ID
   const allowedDomain = 'srmist.edu.in';
   const emailDomain = email.split('@')[1];
-
   if (emailDomain !== allowedDomain) {
     res.redirect('/batch_signup.ejs');
     // alert('USE SRM MAIL ID ONLY ');
@@ -29,19 +55,27 @@ router.post('/batch_signup.ejs', function (req, res, next) {
 
   var reg_num = req.body.reg_num;
   req.session.reg_num = reg_num;
-
   var password = req.body.password;
   req.session.password = password;
-
   var cpassword = req.body.cpassword;
   req.session.cpassword = cpassword;
 
-  // -------  TEMP MAIL START  -------
+  
 
-  // Check if email exists in database
+// CHECKING MAIL IN DATABASE
+
+
+
+
+con.getConnection((error, connection) => {
+  if (error) {
+    console.log(error);
+  } else {
+
+    
   con.query(
-    `SELECT * FROM users WHERE studentemail = '${email}'`,
-    (error, results) => {
+    `SELECT * FROM users WHERE studentemail = '${email}'`,(error, results) => {
+      connection.release();
       if (error) {
         console.error('Error querying database: ', error);
         res.status(500).send('Error querying database');
@@ -53,22 +87,32 @@ router.post('/batch_signup.ejs', function (req, res, next) {
 
           var sql = 'select * from users where studentemail = ?;';
 
-          con.query(sql, [email], function (err, result, fields) {
-            if (err) throw err;
-
-            if (result.length === 0) {
-              req.session.flag = 1;
-              res.redirect('/batch_signup.ejs');
+          con.getConnection((error, connection) => {
+            if (error) {
+              console.log(error);
             } else {
-
-
-              const verificationCode = sendVerificationCode(email);
-              req.session.verificationCode = verificationCode;
-
-              res.render('student/student_verify', { email });
-
+              con.query(sql, [email], function (err, result, fields) {
+                connection.release();
+                if (err) throw err;
+    
+                if (result.length === 0) {
+                  req.session.flag = 1;
+                  res.redirect('/batch_signup.ejs');
+                } else {
+    
+    
+                  const verificationCode = sendVerificationCode(email);
+                  req.session.verificationCode = verificationCode;
+    
+                  res.render('student/student_verify', { email });
+    
+                }
+              });
             }
           });
+          
+
+          
         }
 
         else {
@@ -79,22 +123,31 @@ router.post('/batch_signup.ejs', function (req, res, next) {
       }
     }
   );
+ }
+});
 
-  // -------  TEMP MAIL START  -------
+
+
+
+
+
+
+
 
 
 });
 
-// student verification file 
+// STUDENT VERIFY -> GET
 
 
 router.get('/student_verify.ejs', (req, res) => {
   const email = req.session.email;
   res.render('student/student_verify', { email });
-
-
+  
+  
 });
 
+// STUDENT VERIFY -> POST
 
 router.post('/student_verify.ejs', (req, res) => {
   const enteredCode = req.body.code;
@@ -104,67 +157,79 @@ router.post('/student_verify.ejs', (req, res) => {
   const fullname = req.session.fullname;
   const reg_num = req.session.reg_num;
 
-
-
-
-
   if (enteredCode == savedCode) {
-    con.query(`UPDATE users SET verified = true WHERE studentemail='${email}'`, (error, result) => {
+
+    con.getConnection((error, connection) => {
       if (error) {
         console.log(error);
-        res.render('student/student_verify', { email, error: 'Database error' });
-      }
-
-      else {
-        var hashpassword = bcrypt.hashSync(password, 10);
-        const originalString = reg_num;
-        const batch = originalString.slice(2, 4); // "21"
-        // console.log(substring);
-        var sql;
-        var sql2;
-        if (batch === '22') {
-         sql = `insert into batch1 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);`;
-          sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
-        } else if (batch === '21') {
-          sql = `insert into batch2 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
-          sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
-        } else if (batch === '20') {
-         sql = `insert into batch3 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
-         sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
-        } else {
-          console.error('Invalid value');
-        }
-        
-        // const values = [fullname, reg_num,email,hashpassword, true];
-        // var sql = 'insert into users(studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);';
-        // var sql = 'UPDATE users SET studentname = ?, reg_num = ?,password = ?,verified = ? WHERE studentemail = ?';
-
-        con.query(sql, [fullname, reg_num,email,hashpassword, true] , function (err, result, fields) {
-          if (err) { throw err; }
+      } else {
+        con.query(`UPDATE users SET verified = true WHERE studentemail='${email}'`, (error, result) => {
+          connection.release();
+          if (error) {
+            console.log(error);
+            res.render('student/student_verify', { email, error: 'Database error' });
+          }
+    
           else {
-
-            res.redirect('/batch_signin.ejs');
+            var hashpassword = bcrypt.hashSync(password, 10);
+            const originalString = reg_num;
+            const batch = originalString.slice(2, 4); // "21"
+            // console.log(substring);
+            var sql;
+            var sql2;
+            if (batch === '22') {
+             sql = `insert into batch1 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);`;
+              sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+            } else if (batch === '21') {
+              sql = `insert into batch2 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
+              sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+            } else if (batch === '20') {
+             sql = `insert into batch3 (studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?); `;
+             sql2 = 'UPDATE users SET studentname = ?, reg_num = ?, password = ?,verified=? WHERE studentemail = ?';
+            } else {
+              console.error('Invalid value');
+            }
+            
+            // const values = [fullname, reg_num,email,hashpassword, true];
+            // var sql = 'insert into users(studentname,reg_num,studentemail,password,verified) values(?,?,?,?,?);';
+            // var sql = 'UPDATE users SET studentname = ?, reg_num = ?,password = ?,verified = ? WHERE studentemail = ?';
+    
+            con.getConnection((error, connection) => {
+              if (error) {
+                console.log(error);
+              } else {
+                con.query(sql, [fullname, reg_num,email,hashpassword, true] , function (err, result, fields) {
+                  connection.release();
+                  if (err) { throw err; }
+                  else {
+        
+                    res.redirect('/batch_signin.ejs');
+                  }
+                });
+                con.query(sql2, [fullname, reg_num,hashpassword, true,email] , function (err, result, fields) {
+                  connection.release();
+                  if (err) { throw err; }
+                  
+                });
+              }
+            });           
+            // res.redirect('/batch_signin.ejs');
           }
         });
-        con.query(sql2, [fullname, reg_num,hashpassword, true,email] , function (err, result, fields) {
-          if (err) { throw err; }
-          
-        });
-
-
-        // res.redirect('/batch_signin.ejs');
       }
     });
+    
+
+
+
+   
   } else {
     res.render('student/student_verify', { email, error: 'Invalid verification code' });
   }
 });
 
 
-
-
-
-// resent code 
+// STUDENT RESEND -> GET 
 
 router.get('/student_resend.ejs', (req, res) => {
   const email = req.session.email;
@@ -175,59 +240,56 @@ router.get('/student_resend.ejs', (req, res) => {
 });
 
 
+// BATCH SIGNIN -> GET  
 
-
-
-
-
-// taking student signin page responses 
 router.get('/batch_signin.ejs', (req, res) => {
   res.render('student/batch_signin');
 });
 
 
 
-//Handle POST request for User Login
+// BATCH SIGNIN -> POST  
+
 router.post('/batch_signin.ejs', function (req, res, next) {
-
+ 
   var email = req.body.email;
+  req.session.email=email;
   var password = req.body.password;
-
-
-
-
   var sql = 'select * from users where studentemail = ?;';
 
-
-
-
-  con.query(sql, [email], function (err, result, fields) {
-    if (err) { throw err; }
-
-    if (result.length && bcrypt.compareSync(password, result[0].password) && result[0].verified) {
-      req.session.email = email;
-
-
-      res.redirect('/student_event.ejs');
-
-
+  con.getConnection((error, connection) => {
+    if (error) {
+      console.log(error);
     } else {
-      req.session.flag = 4;
-      res.redirect('/batch_signin.ejs');
-
-
+      con.query(sql, [email], function (err, result, fields) {
+        connection.release();
+        if (err) { throw err; }
+    
+        if (result.length && bcrypt.compareSync(password, result[0].password) && result[0].verified) {
+          req.session.email = email;
+          res.redirect('/student_event.ejs');
+        } else {
+          req.session.flag = 4;
+          res.redirect('/batch_signin.ejs');
+        }
+      });
     }
   });
+  
+
+
+ 
 });
 
 
 // taking student event page responses 
-router.get('/student_event.ejs', (req, res) => {
-  res.render('student/student_event');
+router.get('/student_event.ejs',requireLogin, (req, res) => {
+  var name =req.session.email;
+  res.render('student/student_event', { name });
 });
 // taking student event page responses 
-router.post('/student_event.ejs', (req, res) => {
-  res.redirect('/student_event.ejs');
+router.post('/student_event_form.ejs',requireLogin, (req, res) => {
+  res.redirect('/student_event_form.ejs');
 });
 
 
@@ -235,7 +297,7 @@ router.post('/student_event.ejs', (req, res) => {
 
 
 // taking student event info page responses 
-router.get('/student_event_info.ejs', (req, res) => {
+router.get('/student_event_info.ejs',requireLogin, (req, res) => {
   res.render('student/student_event_info');
 });
 

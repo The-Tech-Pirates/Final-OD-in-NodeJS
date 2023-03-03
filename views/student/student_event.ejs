@@ -63,7 +63,7 @@
               </form>
 
           </nav>
-          <form method="POST">
+          <form method="GET" action="/logout.ejs">
               <button name="logout"
                   class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">Logout
                   <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -79,8 +79,7 @@
           <div class="flex flex-col text-center w-full mb-20">
               <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">You can Apply any one of
                   the below Events !</h2>
-              <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">Welcome,
-                  Kanav Chauhan				</h1>
+              <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">Welcome <%= name %> </h1>
           </div>
           <div class="flex flex-wrap -m-4">
               <style>
