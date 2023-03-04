@@ -28,8 +28,6 @@ function requireLogin(req, res, next) {
 
 
 
-
-
 // BATCH SIGN UP  -> GET
 
 router.get('/batch_signup.ejs', (req, res) => {

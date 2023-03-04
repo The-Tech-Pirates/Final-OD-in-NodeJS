@@ -24,7 +24,7 @@
 							<h1 class="fs-4 card-title fw-bold mb-4">Register</h1>
 							
 							
-							<form method="POST" action="/faculty_signup.ejs" class="needs-validation" novalidate="" autocomplete="off">
+							<form method="POST" action="/event_handler_signup.ejs" class="needs-validation" novalidate="" autocomplete="off">
 								<div class="mb-3">
 									<label class="mb-2 text-muted" for="name">Name</label>
 									<input id="name" type="text" class="form-control" name="name" value="" required
@@ -45,6 +45,26 @@
 								<div class="mb-3">
 									<label class="mb-2 text-muted" for="email">Register Number</label>
 									<input id="number" type="number" class="form-control" name="reg_num" value=""
+										required>
+									<div class="invalid-feedback">
+										Register number is invalid
+									</div>
+								</div>
+
+
+								<div class="mb-3">
+									<label class="mb-2 text-muted" for="email">Phone</label>
+									<input id="number" type="number" class="form-control" name="phone" value=""
+										required>
+									<div class="invalid-feedback">
+										Register number is invalid
+									</div>
+								</div>
+
+
+								<div class="mb-3">
+									<label class="mb-2 text-muted" for="email">Dept</label>
+									<input id="number" type="text" class="form-control" name="dept" value=""
 										required>
 									<div class="invalid-feedback">
 										Register number is invalid
@@ -84,7 +104,7 @@
 						</div>
 						<div class="card-footer py-3 border-0">
 							<div class="text-center">
-								Already have an account? <a href="/faculty_signin.ejs" class="text-dark">Login</a>
+								Already have an account? <a href="/event_handler_signin.ejs" class="text-dark">Login</a>
 							</div>
 						</div>
 					</div>
