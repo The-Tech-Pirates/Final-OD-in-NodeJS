@@ -55,7 +55,7 @@ router.get('/event_handler_signup.ejs', (req, res) => {
   });
 
 
-// EVENT HANDLER SIGN UP -> GET 
+// EVENT HANDLER SIGN UP -> POST 
 router.post('/event_handler_signup.ejs', (req, res) => {
     
   var name = req.body.name;
@@ -195,10 +195,121 @@ router.post('/event_handler_signin.ejs', (req, res) => {
     res.render('faculty/teacher_signup');
   });
 
+
+// Teacher SIGN UP -> POST 
+router.post('/teacher_signup.ejs', (req, res) => {
+    
+  var name = req.body.name;
+  var email = req.body.email;
+
+  const allowedDomain = 'srmist.edu.in';
+  const emailDomain = email.split('@')[1];
+  if (emailDomain !== allowedDomain) {
+    res.redirect('/teacher_signup.ejs');
+    // alert('USE SRM MAIL ID ONLY ');
+  }
+
+
+  var password =req.body.password;
+  var cpassword =req.body.cpassword;
+  var reg_num =req.body.reg_num;
+  var phone =req.body.phone;
+  var dept =req.body.dept;
+
+  if (password !== cpassword) {
+    res.status(400).send('Password and confirm password fields do not match')
+    return
+  }
+
+  con.getConnection((err, connection) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal server error');
+      return;
+    }
+
+    const emailQuery = 'SELECT * FROM teacher WHERE email = ?';
+    connection.query(emailQuery, [req.body.email], (err, results) => {
+      connection.release();
+      if (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+        return;
+      }
+
+      if (results.length > 0) {
+        res.status(400).send('Email already exists');
+        return;
+      }
+
+
+
+
+
+
+  con.getConnection((err, connection) => {
+    if (err) {
+      console.log('Error getting connection from pool:', err)
+      res.status(500).send('An error occurred while trying to insert data')
+      return
+    }
+    var hashpassword = bcrypt.hashSync(password, 10);
+    connection.query('INSERT INTO teacher (email, password,name,reg_num,phone,dept) VALUES (?,?,?,?,?,?)', [email, hashpassword,name,reg_num,phone,dept], (err, results) => {
+      connection.release() // release the connection back to the pool
+
+      if (err) {
+        console.log('Error inserting data into database:', err)
+        res.status(500).send('An error occurred while trying to insert data')
+      } else {
+        res.redirect('/teacher_signin.ejs');
+      }
+    })
+  })})});
+
+  });
+
+
+
+
+
   // TEACHER SIGN IN -> GET 
   router.get('/teacher_signin.ejs', (req, res) => {
     res.render('faculty/teacher_signin');
   });
+
+
+
+// TEACHER SIGN IN  -> POST
+router.post('/teacher_signin.ejs', (req, res) => {
+    
+ 
+  var email = req.body.email;
+  var password =req.body.password;
+  
+
+
+// To get a connection from the pool, use the `getConnection()` method
+con.getConnection((error, connection) => {
+  if (error) {
+    console.error('Error getting connection from pool:', error);
+    return;
+  }
+  var sql = 'select * from teacher where email = ?;';
+  
+  con.query(sql,[email], function(err,result, fields){
+    if(err) throw err;
+
+    if(result.length && bcrypt.compareSync(password, result[0].password)){
+      req.session.email = email;
+      res.redirect('/teacher_event.ejs');
+    }else{
+      req.session.flag = 4;
+      res.redirect('/teacher_signin.ejs');
+    }
+  });
+ 
+});
+});
 
 
 

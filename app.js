@@ -43,7 +43,7 @@ app.use('',faculty)
 // Logout
 app.get('/logout.ejs', (req, res) => {
   req.session.destroy();
-  res.redirect('/batch_signin.ejs');
+  res.redirect('/');
 });
 
 // Start server
