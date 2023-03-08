@@ -204,10 +204,10 @@
 																				><Strong>Apply</Strong>
 									</button>
 									<br><br>
-									<form method="post">
-										<button name="back" class="btn btn-sm btn-outline-success col-6">Go
+									
+										<button name="back" onclick="window.location.href = '/student_event.ejs';" class="btn btn-sm btn-outline-success col-6">Go
 											Back</button>
-									</form>
+									
 								</td>
 								
 								<div class='overlay'>
@@ -239,7 +239,7 @@
 											<h6>Student Limit :
 												100											</h6>
 										</div>
-										<form method="post">
+										<form method="post" action="/student_event_info.ejs">
 											<button name="applyConfirm" class='close' onclick='closePopup()'>
 												Confirm
 											</button>

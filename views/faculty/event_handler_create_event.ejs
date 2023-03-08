@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <form method="POST" action="createEvent.php">
+    <form method="POST" action="/event_handler_create_event.ejs" enctype="multipart/form-data">
 	<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
 		<div class="relative py-3 sm:max-w-xl sm:mx-auto">
 			<div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
@@ -52,27 +52,34 @@
 								<input name="name" type="text"
 									class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
 									placeholder="Kanav - Default"
-									disabled>
+									>
+							</div>
+							<div class="flex flex-col">
+								<label id="cletter" class="leading-loose">Enter your Register Number : </label>
+								<input name="reg_num" type="text"
+									class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+									placeholder="3456787654"
+									>
 							</div>
 							<div class="flex flex-col">
 								<label id="cletter" class="leading-loose">Enter your Email Address : </label>
 								<input name="email" type="text"
 									class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
 									placeholder="kc2938@srmist.edu.in - Default"
-									disabled>
+									>
 							</div>
 							<div class="flex flex-col">
 								<label id="cletter" class="leading-loose">Enter your Contact Number : </label>
 								<input name="contact" type="text"
 									class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-									placeholder="Contact Number" required>
+									placeholder="Contact Number" >
 							</div>
 							<div class="flex flex-col">
 								<label id="cletter" class="leading-loose">Event Name : </label>
 								<div class="relative focus-within:text-gray-600 text-gray-400">
 									<input name="eventname" type="text"
 										class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-										placeholder="Event Name" required>
+										placeholder="Event Name" >
 								</div>
 							</div>
 							<div class="flex items-center space-x-4">
@@ -81,7 +88,7 @@
 									<div class="relative focus-within:text-gray-600 text-gray-400">
 										<input name="eventsubname" type="text"
 											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-											placeholder="Event SubName" required>
+											placeholder="Event SubName">
 									</div>
 								</div>
 								<div class="flex flex-col">
@@ -89,11 +96,11 @@
 									<div class="relative focus-within:text-gray-600 text-gray-400">
 										<input name="clubname" type="text"
 											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-											placeholder="Club Name" required>
+											placeholder="Club Name">
 									</div>
 								</div>
 							</div>
-							<label id="cletters" class="leading-loose">Event Cost : </label>
+							<!-- <label id="cletters" class="leading-loose">Event Cost : </label>
 							<ul
 								class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 								<li
@@ -116,7 +123,7 @@
 											class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Paid</label>
 									</div>
 								</li>
-							</ul>
+							</ul> -->
 							<div class="flex items-center space-x-4">
 								<div class="flex flex-col">
 									<label id="cletter" class="leading-loose">Event price : </label>
@@ -131,7 +138,7 @@
 									<div class="relative focus-within:text-gray-600 text-gray-400">
 										<input name="studentlimit" type="text"
 											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-											placeholder="Student Limit" required>
+											placeholder="Student Limit" >
 									</div>
 								</div>
 							</div>
@@ -142,7 +149,7 @@
 									<div class="relative focus-within:text-gray-600 text-gray-400">
 										<input name="startdate" type="text"
 											class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-											placeholder="25/02/2020" required>
+											placeholder="25/02/2020" >
 										<div class="absolute left-3 top-2">
 											<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
 												xmlns="http://www.w3.org/2000/svg">
@@ -216,14 +223,14 @@
 										id="cletter">Upload the Event Banner : </label>
 									<input name="image"
 										class="form-control block w-full px-2 py-1.5 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-										id="formFileLg" type="file" required>
+										id="formFileLg" type="file" >
 								</div>
 							</div>
 							<div class="flex flex-col">
 								<label id="cletter" class="leading-loose">Event Description : </label>
 								<textarea name="description"
 									class="w-full h-16 px-3 py-2 text-base text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline"
-									placeholder="Enter Event Description Here...." required></textarea>
+									placeholder="Enter Event Description Here...."></textarea>
 							</div>
 						</div>
 						<div class="pt-4 flex items-center space-x-4">

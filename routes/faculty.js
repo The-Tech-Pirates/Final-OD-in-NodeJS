@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const con = require('../config.js')
- 
+const multer  = require('multer');
 
 
 
@@ -23,6 +23,17 @@ function requireLogin(req, res, next) {
     }
   }
 }
+// multer set up 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, 'public/images')
+  },
+  filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname)
+  }
+});
+
+const upload = multer({ storage: storage });
 
 
 
@@ -163,7 +174,37 @@ router.post('/event_handler_signin.ejs', (req, res) => {
 
   // taking faculty event page 
   router.get('/event_handler_event.ejs', (req, res) => {
-    res.render('faculty/event_handler_event');
+    con.getConnection((error, connection) => {
+      if (error) {
+        console.error('Failed to get a connection from the pool:', error);
+        res.status(500).send('Failed to get a connection from the pool');
+      } else {
+        // Define a SQL query to retrieve all events
+        const sql = 'SELECT * FROM newevent';
+  
+        // Execute the SQL query
+        connection.query(sql, (error, results) => {
+          // Release the connection back to the pool
+          connection.release();
+  
+          if (error) {
+            console.error('Failed to retrieve events:', error);
+            res.status(500).send('Failed to retrieve events');
+          } else {
+            var name =req.session.name; 
+            // Render the EJS view template and pass the retrieved events as a data object
+            res.render('faculty/event_handler_event', { name, newevent: results  });
+          }
+        });
+      }
+    });
+  });
+
+  // taking faculty event page 
+  router.post('/event_handler_event.ejs', (req, res) => {
+
+     res.render('faculty/event_handler_event');
+   
   });
 
 
@@ -172,10 +213,49 @@ router.post('/event_handler_signin.ejs', (req, res) => {
     res.render('faculty/event_handler_event_info');
   });
 
+
+
+
+
   // taking faculty event page 
   router.get('/event_handler_create_event.ejs', (req, res) => {
     res.render('faculty/event_handler_create_event');
   });
+
+
+
+
+
+
+
+
+// taking faculty event page 
+  router.post('/event_handler_create_event.ejs', upload.single('image'), (req, res) => {
+    const image = req.file.filename;
+    var { name, reg_num,email, contact, eventname, eventsubname, clubname, eventprice,studentlimit,startdate,enddate,dept,description} = req.body;
+   
+   // Define the SQL query and values
+const sql = 'INSERT INTO newevent (facultyname, facultyreg_num, facultyemail, phone, eventname, eventsubname, description, fees, startdate, enddate, image, dept, studentlimit, clubname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+const values = [name, reg_num, email, contact, eventname, eventsubname, description, eventprice, startdate, enddate,  image , dept, studentlimit, clubname];
+
+// Get a connection from the pool and execute the query
+con.getConnection((err, connection) => {
+  if (err) throw err;
+
+  connection.query(sql, values, (err, result) => {
+    if (err) throw err;
+    console.log(`Inserted ${result.affectedRows} row(s)`);
+    connection.release();
+ 
+ res.redirect('/event_handler_event.ejs');
+    
+  });
+});
+    
+    
+  });
+
+
 
   // taking faculty event page 
   router.get('/faculty_common_signin.ejs', (req, res) => {

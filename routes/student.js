@@ -310,8 +310,32 @@ router.post('/batch_signin.ejs', function (req, res, next) {
 
 // taking student event page responses 
 router.get('/student_event.ejs',requireLogin, (req, res) => {
-  var name =req.session.name; 
-  res.render('student/student_event', { name });
+  
+  con.getConnection((error, connection) => {
+    if (error) {
+      console.error('Failed to get a connection from the pool:', error);
+      res.status(500).send('Failed to get a connection from the pool');
+    } else {
+      // Define a SQL query to retrieve all events
+      const sql = 'SELECT * FROM newevent';
+
+      // Execute the SQL query
+      connection.query(sql, (error, results) => {
+        // Release the connection back to the pool
+        connection.release();
+
+        if (error) {
+          console.error('Failed to retrieve events:', error);
+          res.status(500).send('Failed to retrieve events');
+        } else {
+          var name =req.session.name; 
+          // Render the EJS view template and pass the retrieved events as a data object
+          res.render('student/student_event', { name, newevent: results });
+        }
+      });
+    }
+  });
+  
 });
 // taking student event page responses 
 router.post('/student_event_form.ejs',requireLogin, (req, res) => {
@@ -324,6 +348,15 @@ router.post('/student_event_form.ejs',requireLogin, (req, res) => {
 
 // taking student event info page responses 
 router.get('/student_event_info.ejs',requireLogin, (req, res) => {
+  res.render('student/student_event_info');
+});
+
+
+// taking student event info page responses 
+router.post('/student_event_info.ejs',requireLogin, (req, res) => {
+
+
+  
   res.render('student/student_event_info');
 });
 

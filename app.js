@@ -7,6 +7,7 @@ const main = require('./routes/main.js');
 const faculty = require('./routes/faculty.js');
 const student = require('./routes/student.js');
 
+
 const app = express();
 const port = process.env.PORT || 3000;
 // setting the view engine the folder views for all ejs templates 
@@ -22,8 +23,6 @@ app.use(session({
   saveUninitialized: true,
   cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour (in milliseconds)
 }));
-
-
 
 
 
