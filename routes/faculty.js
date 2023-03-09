@@ -209,7 +209,39 @@ router.post('/event_handler_signin.ejs', (req, res) => {
 
 
   // taking faculty event page 
-  router.get('/event_handler_event_info.ejs', (req, res) => {
+  router.get('/event_handler_event_info.ejs/:eventId', (req, res) => {
+    const eventId = req.params.eventId;
+    con.getConnection((error, connection) => {
+      if (error) {
+        console.error('Failed to get a connection from the pool:', error);
+        res.status(500).send('Failed to get a connection from the pool');
+      } else {
+        // Define a SQL query to retrieve all events
+        const sql = 'SELECT * FROM newevent WHERE id = ?';
+  
+        // Execute the SQL query
+        connection.query(sql,[eventId], (error, results) => {
+          // Release the connection back to the pool
+          connection.release();
+  
+          if (error) {
+            console.error('Failed to retrieve events:', error);
+            res.status(500).send('Failed to retrieve events');
+          } else {
+            // var name =req.session.name; 
+            // Render the EJS view template and pass the retrieved events as a data object
+            const event = results[0];
+            res.render('faculty/event_handler_event_info', { event  });
+          }
+        });
+      }
+    });
+    // res.render('faculty/event_handler_event_info');
+  });
+
+
+  // taking faculty event page 
+  router.post('/event_handler_event_info.ejs', (req, res) => {
     res.render('faculty/event_handler_event_info');
   });
 

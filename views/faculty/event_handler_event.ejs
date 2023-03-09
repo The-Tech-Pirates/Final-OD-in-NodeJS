@@ -125,7 +125,7 @@
 
 
        
-            <img src="/images/<%= newevent.image %>" alt="image">
+            <img src="/images/<%= newevent.image %>" width="100px" alt="image">
         
         
         
@@ -136,15 +136,15 @@
     </div>
     <div class="flex-grow">
         <p><span class="parastyle">Co-ordinator :
-            </span>K S Prassanadevi			</p>
+            </span><%= newevent.facultyname %>		</p>
         <p><span class="parastyle">Dept. :
-            </span>CSE			</p>
+            </span><%= newevent.dept %>		</p>
         <p><span class="parastyle">Description :
-            </span>Lorem ipsum dolor sit amet   m eius sed odit fugiat iusto fuga praesentium  optio  eaque rerum  Provident similique accusantium nemo autem. Veritatis  obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam  nihil  eveniet aliquid culpa officia aut			</p>
+            </span><%= newevent.description %>			</p>
         <br>
         <!--ONCLICK DOWN IS STRICTLY UNSAFE SHOULD CHANGE LATER"> -->
         <button
-            onClick="document.location.href='/event_handler_event_info.ejs'"
+            onClick="document.location.href='/event_handler_event_info.ejs/<%= newevent.id %>'"
             type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             <div class="customsty">See More				</div>

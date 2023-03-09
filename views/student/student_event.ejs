@@ -66,12 +66,14 @@
                 <div class="col-lg-6 col-xxl-4 mb-5">
                     <div class="card bg-light border-0 h-100">
                         <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            
                             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i
                                     class="bi bi-collection"></i></div>
+                                    <img src="/images/<%= newevent.image %>" width="100px" alt="image">
                             <h2 class="fs-4 fw-bold"><%= newevent.eventname %></h2>
                             <p class="mb-0"><%=newevent.eventsubname%></p>
                             <br>
-                            <button type="button" onclick="window.location.href = '/student_event_info.ejs';" class="btn btn-outline-primary">Apply</button>
+                            <button type="button" onclick="window.location.href = '/student_event_info.ejs/<%= newevent.id %>';" class="btn btn-outline-primary">Apply</button>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const con = require('../config.js')
 const bcrypt = require('bcrypt')
+const multer = require('multer')
 const { sendVerificationCode } = require('../mail');
 
 
@@ -25,7 +26,17 @@ function requireLogin(req, res, next) {
   }
 }
 
+// multer set up 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, 'public/images')
+  },
+  filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname)
+  }
+});
 
+const upload = multer({ storage: storage });
 
 
 // BATCH SIGN UP  -> GET
@@ -347,8 +358,16 @@ router.post('/student_event_form.ejs',requireLogin, (req, res) => {
 
 
 // taking student event info page responses 
-router.get('/student_event_info.ejs',requireLogin, (req, res) => {
-  res.render('student/student_event_info');
+router.get('/student_event_info.ejs/:eventId',requireLogin, (req, res) => {
+  const eventId = req.params.eventId;
+  const sql = 'SELECT * FROM newevent WHERE id = ?';
+  con.query(sql, [eventId], (err, results) => {
+    if (err) throw err;
+    const event = results[0];
+    res.render('student/student_event_info', { event });
+  });
+
+
 });
 
 
@@ -356,7 +375,7 @@ router.get('/student_event_info.ejs',requireLogin, (req, res) => {
 router.post('/student_event_info.ejs',requireLogin, (req, res) => {
 
 
-  
+
   res.render('student/student_event_info');
 });
 

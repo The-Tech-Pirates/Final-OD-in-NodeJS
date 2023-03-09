@@ -167,16 +167,14 @@
 	<div class="container mt-5 create-event rounded-4">
 		<div class="row pic-event">
 			<div class="col-md-4 text-end my-auto text-center">
-				<img width="50%" height="60%"
-					src="https://www.hacksforhumanity.io/wp-content/uploads/2020/08/Hackathon-Poster-2-1-scaled.jpg"
-					alt="">
+				<img src="/images/<%= event.image %>" width="100px">
 			</div>
 
 			<div class="col-md-8 text-start px-5 ">
 				<div class="ps-5">
-					<h1> <strong>Hackathon, Ubertech</strong>
+					<h1> <strong><%= event.eventname %></strong>
 					</h1>
-					<h4> <em>ACE</em>
+					<h4> <em><%= event.eventsubname %></em>
 					</h4>
 				</div>
 
@@ -189,12 +187,12 @@
 
 							<tr>
 								<th scope="row">Event Date : </th>
-								<td>12-12-2023 - 15-12-2023								</td>
+								<td><%= event.startdate %> - <%= event.enddate %>								</td>
 
 							</tr>
 							<tr>
 								<th scope="row">Student Limit : </th>
-								<td>100								</td>
+								<td><%= event.studentlimit %>							</td>
 
 							</tr>
 							<tr>
@@ -204,7 +202,7 @@
 										disabled										><Strong>Applied</Strong>
 									</button>
 									<br><br>
-									<form method="post">
+									<form method="get" action="/event_handler_event.ejs">
 										<button name="back" class="btn btn-sm btn-outline-success col-6">Go
 											Back</button>
 									</form>
@@ -217,18 +215,17 @@
 										</div>
 										<div class='content'>
 											<h4>Event Confirmation</h4>
-											<h6>Event name :
-												Ubertech											</h6>
+											<h6>Event name :  <%= event.eventname %>  </h6>
 											<h6>Event Sub Name :
-												Hackathon											</h6>
+												<%= event.eventsubname %>											</h6>
 											<h6>Event Coordinator name :
-												K S Prassanadevi											</h6>
+												<%= event.facultyname %>											</h6>
 											<h6>Coordinator Number :
-												6374529930											</h6>
+												<%= event.phone %>										</h6>
 											<h6>Coordinator Email :
-												ksp51@srmist.edu.in											</h6>
+												<%= event.facultyemail %>										</h6>
 											<h6>Representing club :
-												ACE											</h6>
+												<%= event.clubname %>					</h6>
 											<h6>Event Date :
 												12-12-2023 - 15-12-2023											</h6>
 											<h6>Event Price :
@@ -266,7 +263,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>EventHandler Name :
-								</strong>K S Prassanadevi							</td>
+								</strong><%= event.facultyname %></td>
 						</tr>
 					</tbody>
 				</table>
@@ -280,7 +277,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>EventHandler Email :
-								</strong>ksp51@srmist.edu.in							</td>
+								</strong><%= event.facultyemail %>							</td>
 						</tr>
 
 					</tbody>
@@ -295,7 +292,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>EventHandler Contact Num :
-								</strong>6374529930							</td>
+								</strong><%= event.phone %>					</td>
 
 						</tr>
 
@@ -318,7 +315,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>Representing Club :
-								</strong>ACE							</td>
+								</strong><%= event.clubname %>					</td>
 
 						</tr>
 
@@ -334,7 +331,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>Representing Dept :
-								</strong>CSE							</td>
+								</strong><%= event.dept %>							</td>
 						</tr>
 
 					</tbody>
@@ -349,7 +346,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>Event Cost :
-								</strong>paid - 50							</td>
+								</strong><%= event.fees %>				</td>
 						</tr>
 
 					</tbody>
@@ -371,7 +368,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>Event Start Date :
-								</strong>12-12-2023							</td>
+								</strong><%= event.startdate %>					</td>
 
 						</tr>
 
@@ -387,7 +384,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>Event End Date :
-								</strong>15-12-2023							</td>
+								</strong><%= event.enddate %>				</td>
 
 						</tr>
 
@@ -403,7 +400,7 @@
 					<tbody>
 						<tr>
 							<td scope="row" id="my-text"> <strong>Event Description :
-								</strong>Lorem ipsum dolor sit amet   m eius sed odit fugiat iusto fuga praesentium  optio  eaque rerum  Provident similique accusantium nemo autem. Veritatis  obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam  nihil  eveniet aliquid culpa officia aut							</td>
+								</strong><%= event.description %></td>
 
 						</tr>
 
