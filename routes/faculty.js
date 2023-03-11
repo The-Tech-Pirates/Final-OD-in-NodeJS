@@ -13,13 +13,13 @@ function requireLogin(req, res, next) {
     return next();
   } else {
     // User is not logged in, check if current route is sign-up route
-    if (req.originalUrl === '/batch_signup.ejs') {
+    if (req.originalUrl === '/faculty_signup.ejs') {
       // User is trying to sign up, call the next middleware function
       return next();
     } 
     else {
       // User is not trying to sign up, redirect to login page
-      return res.redirect('/batch_signin.ejs');
+      return res.redirect('/faculty_signin.ejs');
     }
   }
 }
@@ -173,7 +173,7 @@ router.post('/event_handler_signin.ejs', (req, res) => {
   });
 
   // taking faculty event page 
-  router.get('/event_handler_event.ejs', (req, res) => {
+  router.get('/event_handler_event.ejs',requireLogin, (req, res) => {
     con.getConnection((error, connection) => {
       if (error) {
         console.error('Failed to get a connection from the pool:', error);
@@ -209,7 +209,7 @@ router.post('/event_handler_signin.ejs', (req, res) => {
 
 
   // taking faculty event page 
-  router.get('/event_handler_event_info.ejs/:eventId', (req, res) => {
+  router.get('/event_handler_event_info.ejs/:eventId',requireLogin, (req, res) => {
     const eventId = req.params.eventId;
     con.getConnection((error, connection) => {
       if (error) {
@@ -250,7 +250,7 @@ router.post('/event_handler_signin.ejs', (req, res) => {
 
 
   // taking faculty event page 
-  router.get('/event_handler_create_event.ejs', (req, res) => {
+  router.get('/event_handler_create_event.ejs',requireLogin, (req, res) => {
     res.render('faculty/event_handler_create_event');
   });
 

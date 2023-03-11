@@ -167,7 +167,7 @@
 	<div class="container mt-5 create-event rounded-4">
 		<div class="row pic-event">
 			<div class="col-md-4 text-end my-auto text-center">
-				<img src="/images/<%= event.image %>" width="100px">			</div>
+				<img src="/images/<%= event.image %>" width="300px">			</div>
 
 			<div class="col-md-8 text-start px-5 ">
 				<div class="ps-5">
@@ -212,31 +212,32 @@
 										<div class='title'>
 											Disclaimer
 										</div>
+										
 										<div class='content'>
 											<h4>Event Confirmation</h4>
-											<h6>Event name :
-												<%= event.eventname %>											</h6>
-											<h6>Event Sub Name :
+											<h6 name="eventname" >Event name :
+												<%= event.eventname %>										</h6>
+											<h6 name="eventsubname" >Event Sub Name :
 												<%= event.eventsubname %>										</h6>
-											<h6>Event Coordinator name :
+											<h6 name="facultyname" >Event Coordinator name :
 												<%= event.facultyname %>											</h6>
-											<h6>Coordinator Number :
+											<h6 name="phone" >Coordinator Number :
 												<%= event.phone %>											</h6>
-											<h6>Coordinator Email :
+											<h6 name="facultyemail" >Coordinator Email :
 												<%= event.facultyemail %>										</h6>
-											<h6>Representing club :
+											<h6 name="clubname" >Representing club :
 												<%= event.clubname %>											</h6>
-											<h6>Event Date :
+											<h6 name="date" >Event Date :
 												<%= event.startdate %> - <%= event.enddate %>											</h6>
-											<h6>Event Price :
+											<h6 name="dept" >Department :
 												<%= event.dept %>											</h6>
 
-											<h6>Event Price :
+											<h6 name="eventprice" >Event Price :
 												<%= event.fees %>											</h6>
-											<h6>Student Limit :
+											<h6 name="studentlimit" >Student Limit :
 												<%= event.studentlimit %>											</h6>
 										</div>
-										<form method="post" action="/student_event_info.ejs">
+										<form method="post" action="/student_event_info.ejs/<%= event.id %>">
 											<button name="applyConfirm" class='close' onclick='closePopup()'>
 												Confirm
 											</button>
