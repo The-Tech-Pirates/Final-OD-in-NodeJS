@@ -197,16 +197,34 @@
 							<tr>
 								<th scope="row">Apply Here : </th>
 								<td colspan="2">
-									<button onclick='popup()' type="button" class="btn btn-sm btn-outline-success col-6"
+									
+									<% if (!isRegistered ) { %>
+									
+									
+									<form method="post" action="/student_event_info.ejs/<%= event.id %>">
+									<button type="submit" class="btn btn-sm btn-outline-success col-6"
 																				><Strong>Apply</Strong>
-									</button>
+									</button></form>
+
+									<% } else { %>
+
+
+										<form method="post" action="/delete_event/<%= event.id %>">
+											<button type="submit" class="btn btn-sm btn-outline-danger col-6"
+																						><Strong>Cancel</Strong>
+											</button></form>
+
+											<% } %>
+
+
+
 									<br><br>
 									
 										<button name="back" onclick="window.location.href = '/student_event.ejs';" class="btn btn-sm btn-outline-success col-6">Go
 											Back</button>
 									
 								</td>
-								
+							<!-- 	
 								<div class='overlay'>
 									<div class='popup-container'>
 										<div class='title'>
@@ -237,11 +255,11 @@
 											<h6 name="studentlimit" >Student Limit :
 												<%= event.studentlimit %>											</h6>
 										</div>
-										<form method="post" action="/student_event_info.ejs/<%= event.id %>">
+										
 											<button name="applyConfirm" class='close' onclick='closePopup()'>
 												Confirm
 											</button>
-										</form>
+										 -->
 
 									</div>
 								</div>

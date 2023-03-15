@@ -309,14 +309,65 @@ router.post("/student_event_form.ejs", requireLogin, (req, res) => {
 
 // taking student event info page responses
 router.get("/student_event_info.ejs/:eventId", requireLogin, (req, res) => {
+  
   const eventId = req.params.eventId;
-  const sql = "SELECT * FROM newevent WHERE id = ?";
+  const email = req.session.email;
+  // var isRegistered ;
+  con.getConnection((error, connection) => {
+    if (error) throw error;
+    console.log('Connected to MySQL database!');
+  
+    const query = `SELECT * FROM applyevent WHERE studentemail='${email}' AND eventid ='${eventId}' `;
+    connection.query(query, (error, results) => {
+      connection.release();
+      if (error) throw error;
+    
+       if (results.length == 0){
+       var isRegistered = false ;
+
+        
+       }
+       else{
+       var isRegistered = true ;
+       }
+      
+       const sql = "SELECT * FROM newevent WHERE id = ?";
   con.query(sql, [eventId], (err, results) => {
     if (err) throw err;
     const event = results[0];
-    res.render("student/student_event_info", { event });
+    res.render("student/student_event_info", { event ,isRegistered });
   });
+    });
+
+  });
+
+  
+
+
+ 
 });
+
+
+router.post("/delete_event/:eventId",requireLogin,(req,res)=>{
+  const eventId = req.params.eventId;
+  con.getConnection((error, connection) => {
+    if (error) throw error;
+    console.log('Connected to MySQL database!');
+  
+    const query = `DELETE FROM applyevent WHERE eventid = ${eventId} `;
+    connection.query(query, (error, results) => {
+      connection.release();
+      res.redirect("/student_event.ejs");
+      
+    });
+
+  });
+
+})
+
+
+
+
 
 // taking student event info page responses
 router.post("/student_event_info.ejs/:eventId", requireLogin, (req, res) => {
@@ -353,7 +404,7 @@ con.getConnection((err, connection) => {
             // Handle error
           } else {
             // Insert new row into applyevent table
-            const applyEventQuery = " insert into applyevent (studentname,studentreg_num,studentemail,dept,year,section,eventname,eventsubname,startdate,enddate,facultyname,facultyreg_num,facultyphone,facultyemail,fees,clubname,studentlimit) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            const applyEventQuery = " insert into applyevent (studentname,studentreg_num,studentemail,dept,year,section,eventname,eventid,eventsubname,startdate,enddate,facultyname,facultyreg_num,facultyphone,facultyemail,fees,clubname,studentlimit) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             const applyEventValues = [
               userResults[0].studentname,
               userResults[0].reg_num,
@@ -362,6 +413,7 @@ con.getConnection((err, connection) => {
               userResults[0].year,
               userResults[0].sec,
               eventResults[0].eventname,
+              eventResults[0].id,
               eventResults[0].eventsubname,
               eventResults[0].startdate,
               eventResults[0].enddate,
