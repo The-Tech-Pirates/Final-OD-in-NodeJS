@@ -404,7 +404,7 @@ con.getConnection((err, connection) => {
             // Handle error
           } else {
             // Insert new row into applyevent table
-            const applyEventQuery = " insert into applyevent (studentname,studentreg_num,studentemail,dept,year,section,eventname,eventid,eventsubname,startdate,enddate,facultyname,facultyreg_num,facultyphone,facultyemail,fees,clubname,studentlimit) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            const applyEventQuery = " insert into applyevent (studentname,studentreg_num,studentemail,dept,year,section,eventname,eventid,eventsubname,startdate,enddate,facultyname,facultyreg_num,facultyphone,facultyemail,fees,clubname,studentlimit,eventhandler_approved,hod_approved) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,0);";
             const applyEventValues = [
               userResults[0].studentname,
               userResults[0].reg_num,
@@ -442,11 +442,12 @@ con.getConnection((err, connection) => {
     });
   }
 });
-
-
-
-
  
 });
+
+
+
+
+
 
 module.exports = router;

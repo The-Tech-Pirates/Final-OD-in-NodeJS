@@ -294,12 +294,115 @@ con.getConnection((err, connection) => {
     res.render('faculty/faculty_common_signin');
   });
 
-// dsafadfadfasdfasdfasdfasdf
+
   
   // taking faculty event page 
   router.get('/hod_signin.ejs', (req, res) => {
     res.render('faculty/hod_signin');
   });
+
+
+  // taking faculty event page 
+  router.post('/hod_signin.ejs', (req, res) => {
+
+    const email = req.body.email
+    const password = req.body.password
+  
+    // check if email and password are correct
+    if (email === 'srm@srmist.edu.in' && password === 'srm') {
+      // if email and password are correct, redirect to a specific page
+      return res.redirect('/hod_event.ejs')
+    } else {
+      // if email and password are incorrect, show an error message
+       res.redirect('/hod_signin.ejs');
+    }
+
+    
+  });
+
+
+
+
+
+  
+  // taking faculty event page 
+  router.get('/hod_event.ejs', (req, res) => {
+    
+    
+     
+  con.getConnection((error, connection) => {
+    if (error) throw error;
+  
+    const query = 'SELECT * FROM applyevent WHERE eventhandler_approved = ?';
+    const email = req.session.email;
+  
+    connection.query(query, ['1'], (error, results) => {
+      connection.release();
+      if (error) throw error;
+  
+      res.render('faculty/hod_event', { events: results });
+    });
+
+
+    
+  })
+
+  });
+
+
+  router.post('/hod_event.ejs', (req, res) => {
+
+    con.getConnection((error, connection) => {
+      if (error) throw error;
+    
+      
+      var hodemail = req.session.email;
+   
+      if (req.body.approveAll) {
+        // Update the status of all rows to "approved"
+        
+        connection.query('UPDATE applyevent SET eventhandler_approved = ? ', ['1'], (error, results) => {
+          if (error) throw error;
+          res.redirect('/event_handler_approval.ejs');
+        });
+      } else if (req.body.declineAll) {
+        // Delete all rows from the table
+        
+        connection.query('DELETE FROM applyevent ' , (error, results) => {
+          if (error) throw error;
+          res.redirect('/event_handler_approval.ejs');
+        });
+      } else if (req.body.approve) {
+        // Update the status of the row to "approved"
+        // const id = req.body.approve;
+        var [email, id] = req.body.approve.split(',');
+        connection.query('UPDATE applyevent SET eventhandler_approved = ?  WHERE studentemail = ? AND eventid = ? ' , ['1', email,id], (error, results) => {
+          if (error) throw error;
+          console.log(id);
+          res.redirect('/event_handler_approval.ejs');
+        });
+      } else if (req.body.decline) {
+        // Delete the row from the table
+        // const id = req.body.decline;
+         var [email, id] = req.body.decline.split(',');
+         console.log(id);
+        connection.query('DELETE FROM applyevent WHERE studentemail= ? AND eventid = ? ', [email,id], (error, results) => {
+          if (error) throw error;
+          res.redirect('/event_handler_approval.ejs');
+        });
+      }
+
+
+    });
+
+
+
+
+    
+  });
+
+
+
 
 
   // TEACHER SIGN UP -> GET 
@@ -426,6 +529,82 @@ con.getConnection((error, connection) => {
 
 
 
+
+router.get("/event_handler_approval.ejs", requireLogin, (req, res) => {
+
+  
+  con.getConnection((error, connection) => {
+    if (error) throw error;
+  
+    const query = 'SELECT * FROM applyevent WHERE facultyemail = ?';
+    const email = req.session.email;
+  
+    connection.query(query, [email], (error, results) => {
+      connection.release();
+      if (error) throw error;
+  
+      res.render('faculty/event_handler_approval', { events: results });
+    });
+  });
+  
+  } )
+
+  router.post("/event_handler_approval.ejs", requireLogin, (req, res) => {
+
+
+    con.getConnection((error, connection) => {
+      if (error) throw error;
+    
+      
+      var facultyemail = req.session.email;
+   
+      if (req.body.approveAll) {
+        // Update the status of all rows to "approved"
+        
+        connection.query('UPDATE applyevent SET eventhandler_approved = ? WHERE facultyemail = ? ', ['1',facultyemail], (error, results) => {
+          if (error) throw error;
+          res.redirect('/event_handler_approval.ejs');
+        });
+      } else if (req.body.declineAll) {
+        // Delete all rows from the table
+        
+        connection.query('DELETE FROM applyevent WHERE facultyemail = ? ',[facultyemail] , (error, results) => {
+          if (error) throw error;
+          res.redirect('/event_handler_approval.ejs');
+        });
+      } else if (req.body.approve) {
+        // Update the status of the row to "approved"
+        // const id = req.body.approve;
+        var [email, id] = req.body.approve.split(',');
+        connection.query('UPDATE applyevent SET eventhandler_approved = ?  WHERE studentemail = ? AND eventid = ? ' , ['1', email,id], (error, results) => {
+          if (error) throw error;
+          console.log(id);
+          res.redirect('/event_handler_approval.ejs');
+        });
+      } else if (req.body.decline) {
+        // Delete the row from the table
+        // const id = req.body.decline;
+         var [email, id] = req.body.decline.split(',');
+         console.log(id);
+        connection.query('DELETE FROM applyevent WHERE studentemail= ? AND eventid = ? ', [email,id], (error, results) => {
+          if (error) throw error;
+          res.redirect('/event_handler_approval.ejs');
+        });
+      }
+
+
+    });
+
+
+
+
+  
+    
+
+
+
+
+  });
 
 
 

@@ -46,10 +46,10 @@
     </span>
   </a>
   <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-    <form method="POST">
+    
       <button name="Home_EH" class="mr-5 hover:text-gray-900">Home</button>
-      <button name="EH_EventRequests" class="mr-5 hover:text-gray-900">Event Requests</button>
-    </form>
+      <button name="EH_EventRequests" onclick="window.location.href = '/event_handler_approval.ejs';" class="mr-5 hover:text-gray-900">Event Requests</button>
+    
   </nav>
   <form method="get" action="/logout.ejs">
     <button name="logout_EH"
