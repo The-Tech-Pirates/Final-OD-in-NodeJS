@@ -6,6 +6,8 @@ const config = require('./config');
 const main = require('./routes/main.js');
 const faculty = require('./routes/faculty.js');
 const student = require('./routes/student.js');
+const nodemailer = require('nodemailer');
+const con = require('./config')
 
 
 const app = express();
@@ -32,6 +34,56 @@ app.use(session({
 app.use('',main)
 app.use('',student)
 app.use('',faculty)
+
+
+
+
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "kanavchauhan001@gmail.com",
+    pass: "nckcubawcueyfrik",
+  },
+});
+
+const mailOptions = {
+  from: "kanavchauhan001@gmail.com",
+  subject: "SUCCESS - Registered",
+  text: ""
+};
+
+con.getConnection((err, connection) => {
+  if (err) {
+    console.error('Error connecting to database: ', err);
+    return;
+  }
+
+  connection.query(
+    "SELECT studentemail, eventname FROM applyevent WHERE hod_approved = true",
+    function (error, results, fields) {
+      if (error) throw error;
+
+      const recipients = results.map((result) => result.studentemail);
+      mailOptions.to = recipients;
+
+      results.forEach(result => {
+        const text = `You are successfully registered for the event: ${result.eventname}`;
+        mailOptions.text += `${text}\n`;
+      });
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) console.log(error);
+        else console.log("Email sent: " + info.response);
+      });
+    }
+  );
+
+  connection.release();
+});
+
+
+
 
 
 

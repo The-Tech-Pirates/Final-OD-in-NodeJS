@@ -306,6 +306,7 @@ con.getConnection((err, connection) => {
   router.post('/hod_signin.ejs', (req, res) => {
 
     const email = req.body.email
+    req.session.email= email;
     const password = req.body.password
   
     // check if email and password are correct
@@ -356,30 +357,30 @@ con.getConnection((err, connection) => {
       if (error) throw error;
     
       
-      var hodemail = req.session.email;
+      const hodemail = req.session.email;
    
       if (req.body.approveAll) {
         // Update the status of all rows to "approved"
         
-        connection.query('UPDATE applyevent SET eventhandler_approved = ? ', ['1'], (error, results) => {
+        connection.query('UPDATE applyevent SET hod_approved = ? ', ['1'], (error, results) => {
           if (error) throw error;
-          res.redirect('/event_handler_approval.ejs');
+          res.redirect('/hod_event.ejs');
         });
       } else if (req.body.declineAll) {
         // Delete all rows from the table
         
         connection.query('DELETE FROM applyevent ' , (error, results) => {
           if (error) throw error;
-          res.redirect('/event_handler_approval.ejs');
+          res.redirect('/hod_event.ejs');
         });
       } else if (req.body.approve) {
         // Update the status of the row to "approved"
         // const id = req.body.approve;
         var [email, id] = req.body.approve.split(',');
-        connection.query('UPDATE applyevent SET eventhandler_approved = ?  WHERE studentemail = ? AND eventid = ? ' , ['1', email,id], (error, results) => {
+        connection.query('UPDATE applyevent SET hod_approved = ?  WHERE studentemail = ? AND eventid = ? ' , ['1', email,id], (error, results) => {
           if (error) throw error;
           console.log(id);
-          res.redirect('/event_handler_approval.ejs');
+          res.redirect('/hod_event.ejs');
         });
       } else if (req.body.decline) {
         // Delete the row from the table
@@ -388,7 +389,7 @@ con.getConnection((err, connection) => {
          console.log(id);
         connection.query('DELETE FROM applyevent WHERE studentemail= ? AND eventid = ? ', [email,id], (error, results) => {
           if (error) throw error;
-          res.redirect('/event_handler_approval.ejs');
+          res.redirect('/hod_event.ejs');
         });
       }
 
